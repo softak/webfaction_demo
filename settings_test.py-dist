@@ -1,0 +1,54 @@
+# This is an example settings_local.py file.
+# Copy it and add your local settings here.
+
+from settings import *
+
+LESS_BIN = 'PATH_TO/lessc'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+
+        'NAME': 'shoppingdomain_test',
+        'USER': 'postgres',
+        'PASSWORD': ''
+        'HOST': 'localhost',
+        'PORT': '',
+    },
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
+
+ADMINS = (
+)
+MANAGERS = ADMINS
+
+DEBUG = TEMPLATE_DEBUG = True
+DEV = True
+
+
+SECRET_KEY = '1iz#v0m55@h26^m6hxk3a7at*h$qj_2a$juu1#nv50548j(x1v'
+
+FACEBOOK_APP_ID = '172270859518105'
+FACEBOOK_APP_SECRET = 'e9d50c813ed3b442a4d0e17ac11b2464'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+import logging 
+logging.getLogger('django.db.backends').setLevel(logging.ERROR)
+
+API_ENVIRONMENT='sandbox'
+API_USERID='sllr1_1319977604_biz_api1.gmail.com'
+API_PASSWORD='1319977630'
+API_SIGNATURE='AIIafItLgz5fj4SuyH4SPcjKJp-pAyNi8Piqc-yfBieFP7FY0X0WF.z5'
+
+from datetime import timedelta
+SHIPPING_PRICE_REQUEST_PROCESSING_PERIOD = timedelta(hours=2)
+SHIPPING_PAY_PERIOD = timedelta(hours=4)
+
+TIME_ZONE = 'UTC'
+USE_TZ = False

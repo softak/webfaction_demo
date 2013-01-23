@@ -1,0 +1,118 @@
+{% extends "simple.j.html" %}
+
+
+{% block title %}{{ _("Results") }}{% endblock %}
+
+
+{% block content %}
+  <div id="search-results">
+
+    <div class="page-header">
+      <script type="text/html" class="resultsTemplate">
+        <h1>
+        &ldquo;{{ form.query.value()|e }}&rdquo;
+          <small>{% trans %}__collection.length__ found{% endtrans %}</small>
+        </h1>
+    </script>
+    </div>
+
+    <div class="row">
+
+      <aside class="span3">
+
+        <div class="map">
+          <label class="checkbox"><input type="checkbox"> {{ _("Search on Map") }}</label>
+          <div class="canvas"></div>
+          <script type="text/javascript">
+            $(document).ready(function() {
+              var center = new google.maps.LatLng(56.85, 60.6);
+              var map = new google.maps.Map(
+                $('#search-results .map .canvas').get(0),
+                {
+                  center: center,
+                  zoom: 4,
+                  mapTypeId: google.maps.MapTypeId.ROADMAP,
+                  scrollwheel: false
+                }
+              );
+            });
+          </script>
+        </div>
+
+        <div class="categories">
+          <h6>{{ _("Categories") }}</h6>
+          <ul class="unstyled">
+            <li class="active">{{ _("All Categories") }} <span>19</span></li>
+            <li><a href="#">Automotive</a> <span>15</span></li>
+            <li><a href="#">Clothing</a> <span>3</span></li>
+            <li><a href="#">Baby</a> <span>1</span></li>
+          </ul>
+        </div>
+
+      </aside>
+
+      <section class="span9">
+        <div class="controls">
+          <select class="sort">
+            <option>Best match first</option>
+            <option>Nearest first</option>
+            <option>Cheapest first</option>
+          </select>
+        </div>
+
+        <div class="results">
+
+          <div class="loader"></div>
+
+          <p class="empty hide">{% trans %}Nothing's found.{% endtrans %}</p>
+
+          <section class="items-frame">
+            <ul class="items unstyled"></ul>
+            <script class="itemTemplate" type="text/html">
+              <a href="/stores/items/__id__/" class="image"><img src="__default_image__" width="150" height="150" /></a>
+              <a href="/stores/items/__id__/" class="caption">__name__</a>
+              <div class="price">
+                <span class="original money">__price__</span>
+              </div>
+
+              <div class="best-offer">Best offer: <span class="money">$__best_offer_price__</span></div>
+              <div class="time-left"><% if (best_offer_finishes_in) { %>Finishes <span>__best_offer_finishes_in__</span><% } %></div>
+
+              <div class="store"><a href="#">Second Hand Book Store</a></div>
+            </script>
+
+            <div class="pagination">
+              <script class="paginatorTemplate" type="text/html">
+                <ul>
+                  <li class="prev<% if (!collection.hasPrevPage()) { %> disabled<% } %>"><a>{{ _("Previous") }}</a></li>
+
+                <% _(pages).each(function (number) { %>
+                  <li class="page-number<% if (collection.page == number) { %> active<% } %>">
+                    <a data-number="__number__">__number__</a>
+                  </li>
+                <% }); %>
+
+              <li class="next<% if (!collection.hasNextPage()) { %> disabled<% } %>"><a>{{ _("Next") }}</a></li>
+                </ul>
+              </script>
+            </div>
+          </section>
+        </div> {# .results #}
+      </section>
+    </div> {# .row #}
+  </div> {# #search-results #}
+{% endblock %}
+
+
+<script>
+{% block js_ready %}
+  {{ super() }}
+  window.resultsRouter = new SearchResultsRouter({ query: '{{ form.query.value() }}' });
+  Backbone.history.start();
+{% endblock %}
+
+
+{% block js %}
+  <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3.5&region=AU&sensor=true"></script>
+  {{ super() }}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "stores/manage/base.j.html" %}
+
+{% block manage_content %}
+  <section>
+  <p>{% trans count=user.store.items.count() -%}
+    You have {{ count }} item.
+  {%- pluralize -%}
+    You have {{ count }} items.
+  {%- endtrans %}</p>
+  </section>
+{% endblock %}

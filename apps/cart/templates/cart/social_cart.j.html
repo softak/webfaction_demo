@@ -1,0 +1,153 @@
+{% extends "cart/base.j.html" %}
+
+{% set section="cart" %}
+{% set cart_nav_active="social" %}
+
+{% block title %}Cart{% endblock %}
+
+
+{% block cart_content %}
+  <style>
+    .loading { border: 5px solid red; } /* TODO! */
+    .section-1.empty, .section-2.empty {
+      display: none;
+    }
+  </style>
+  <script id="social-buy-template" type="text/html">
+    <div class="header">
+      <span class="buyer you">
+        <img src="__creator.avatar_xsmall__" />
+        <span class="name">__creator.name__</span>
+      </span>
+      is buying at
+      <a class="store" href="__store_site_url__">__store_name__</a>
+      <span class="time-left">__finishes_in__</span>
+      <% if (is_expired) { %>
+        <a href="#" rel="tooltip" title="You have to pay in 2 days after seller has responded to your request.">
+          <i class="icon-exclamation-sign"></i>
+        </a>
+      <% } %>
+      <span class="shipping">
+        <% if (hasShippingRequest) { %>
+          <% if (shipping_request.get('price')) { %>
+            Postage price is <span class="money">__shipping_request.get('price')__</span>
+            <a class="cancel">Cancel</a>
+          <% } else { %>
+            Postage price request sent
+            <button class="cancel  btn btn-small">Cancel</button>
+          <% } %>
+        <% } else if (hasPickupRequest) { %>
+          You will pick it up
+          <a class="cancel">Cancel</a>
+        <% } else { %>
+          <button class="select  btn">Select Shipping Method</button>
+        <% } %>
+      </span>
+    </div>
+
+    <ul class="tags  unstyled">
+    </ul>
+  </script>
+
+  <script id="social-tag-template" type="text/html">
+    <img class="thumb" src="__item_thumb__" width="80" height="80" />
+    <div class="caption"><a href="__item_site_url__">__item_name__</a></div>
+    <div class="price">
+      <span class="original money">__price__</span>
+      <span class="current money">__discounted_price__</span>
+    </div>
+    <div class="controls">
+      <span class="in-cart">__quantity__ in cart</span>
+      <a class="change">{{ _('[Change]') }}</a>
+      <a class="remove">{{ _('[Remove]') }}</a>
+      <div class="loader"></div>
+
+      <form>
+        <input name="quantity" class="quantity" type="text" value="__quantity__" />
+        <input class="btn default" type="submit" value="{{ _('Update') }}" />
+      </form>
+    </div>
+  </script>
+
+  <div id="shipping-modal" class="modal hide scrollable fade in">
+    <div class="modal-header">
+      <a class="close" data-mismiss="modal">&times;</a>
+      <h3>Select Shipping Method</h3>
+    </div>
+    <div class="modal-content">
+      <form class="form-horizontal">
+        <div class="control-group">
+          <label class="control-label">Shipping method</label>
+          <div class="controls">
+            <label class="radio">
+              <input type="radio" name="shipping" value="pickup">In-Store Pick-Up</input>
+            </label>
+            <label class="radio">
+              <input type="radio" name="shipping" value="shipping">Delivery</input>
+              <div class="help-block">
+                <p>Postage price request will be made in the case of <strong>delivery</strong> shipment method. <a href="#">Read more&hellip;</a></p>
+              </div>
+            </label>
+          </div>
+        </div>
+        <div class="shipping-address control-group hide">
+          <label class="control-label" for="shipping-address">Shipping Address</label>
+          <div class="controls">
+            <textarea class="input-xlarge" id="shipping-address" rows="3"></textarea>
+            <p class="help-block">Please use <a href="#">International Address Format Guide</a> as a reference.</p>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <input type="submit" class="btn select" value="Select" />
+      <button class="btn cancel">Cancel</button>
+    </div>
+  </div>
+
+  {% if is_empty %}
+    <section>
+      <p class="empty">{% trans %}Empty.{% endtrans %}</p>
+    </section>
+  {% else %}
+
+  <div class="section-1">
+    <section>
+      <h6>1. Select Shipping Method</h6>
+      <p>Before you can proceed with payment you first have to choose a shipping method for your social purchases.
+      </p>
+    </section>
+    <ul class="buys draft  unstyled"></ul>
+    <ul class="buys pending-shipping-requests  unstyled"></ul>
+  </div>
+  
+  <div class="section-2">
+    <section>
+      <h6>2. Ready to Pay</h6>
+      <p>You can now pay for items for which a shipping method if defined and postage price set.</p>
+    </section>
+    <ul class="buys shipping-requests ready-to-pay   unstyled"></ul>
+    <ul class="buys pickup-requests ready-to-pay   unstyled"></ul>
+  </div>
+
+  <form class="footing">
+    <div class="form-actions">
+      <a class="checkout btn default" href="{{ url('cart.preview_social_cart') }}">
+        {{ _("Checkout") }}
+      </a>
+    </div>
+  </form>
+
+  {% endif %}
+{% endblock %}
+
+<script>
+{% block js_ready %}
+  {{ super() }}
+
+  window.app = new SocialCartRouter({
+    cart: {{ cart_json|safe }}
+  });
+  Backbone.history.start();
+{% endblock %}
+</script>

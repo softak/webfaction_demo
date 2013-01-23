@@ -1,0 +1,21 @@
+{% extends "stores/manage/base.j.html" %}
+
+{% block title %}{{ _('Done!') }}{% endblock %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>{{ _('Store created') }}</h1>
+  </div>
+  <section>
+  {% if paypal_url %}
+    <p>
+      {% trans %}In order to connect your PayPal account to Shopping Domain profile, please follow the link below and
+      give us permissions to access your personal data and make refunds on your behalf.
+      {% endtrans %}
+    </p>
+    <a href="{{ paypal_url }}">{% trans %}Go to PayPal{% endtrans %}</a>
+  {% else %}
+    <p>{% trans %}Your PayPal account was connected. Your store will be added after administration approval.{% endtrans %}</p>
+  {% endif %}
+  </section>
+{% endblock %}

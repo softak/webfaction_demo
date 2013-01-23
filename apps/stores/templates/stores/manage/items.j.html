@@ -1,0 +1,141 @@
+{% extends "stores/manage/base.j.html" %}
+
+{% import "forms.j.macro" as forms %}
+{% set store_nav_active='items' %}
+
+
+{% block manage_content %}
+  <section>
+    <a class="create-item  btn">{{ _("Add New Product") }}</a>
+
+    <div class="new-items">
+      <h3>Newly created items</h3>
+      <ul class="list"></ul>
+    </div>
+
+    <div class="items">
+      <ul class="list"></ul>
+      <div class="pagination"></div>
+
+      <script id="paginator-template" type="text/html">
+        <ul>
+          <li class="prev <% if (!collection.hasPrevPage()) { %>disabled<% } %>">
+            <a>{{ _("Previous") }}</a>
+          </li>
+          <% _.each(pages, function(page) { %>
+            <li class="<% if (collection.page == page) { %>active<% } %> page-number">
+              <a data-number="__page__">__page__</a>
+            </li>
+          <% }); %>
+          <li class="next <% if (!collection.hasNextPage()) { %>disabled<% } %>">
+            <a>{{ _("Next") }}</a>
+          </li>
+        </ul>
+      </script>
+    </div>
+
+    <script id="item-template" type="text/html">
+      <img src="__default_image__" />
+      <h3>__name__ <small class="money">__price__</small></h3>
+      <p>__description__</p>
+
+      <div class="controls">
+        <a href="#__id__/" class="edit">{{ _("Edit") }}</a>
+        <a href="#" class="delete">{{ _("Delete") }}</a>
+      </div>
+    </script>
+  </section>
+
+  <script id="create-item-modal-template" type="text/html">
+    <div class="modal-header">
+      <a class="close">×</a>
+      <h3>{{ _("Add New Product") }}</h3>
+    </div>
+    <form action="__action__" method="post" class="form-horizontal">
+      <div class="modal-body">
+        <fieldset>
+        {% for field in item_form.fields %}
+          {{ forms.input(item_form[field]) }}
+        {% endfor %}
+        </fieldset>
+      </div>
+      <div class="modal-footer form-actions">
+        <input type="submit" value="{{ _("Create") }}"
+               class="btn" />
+      </div>
+    </form>
+  </script>
+<script id="edit-item-modal-template" type="text/html">
+    <div  class="modal-header tabbed">
+      <a  class="close">×</a>
+      <h3>{{ _("Edit Product") }} <small>__item.get("name")__</small></h3>
+      <ul  class="nav nav-tabs">
+        <li class="item-tab  active">
+          <a href="#__item.get('id')__/">{{ _("Details") }}</a>
+        </li>
+        <li class="images-tab">
+          <a href="#__item.get('id')__/images/">{{ _("Images") }}</a>
+        </li>
+      </ul>
+    </div>
+
+    <div  class="tab-content">
+
+      <div class="item-pane  tab-pane active">
+        <form action="__item.url()__" method="put"
+              class="form-horizontal">
+          <div  class="modal-body">
+            <fieldset>
+            {% for field in item_form.fields %}
+              {{ forms.input(item_form[field]) }}
+            {% endfor %}
+            </fieldset>
+          </div>
+          <div class="modal-footer form-actions">
+            <input type="submit" value="{{ _("Save") }}"
+                   class="btn default" />
+          </div>
+        </form>
+      </div>
+
+      <div class="images-pane tab-pane">
+        <div class="modal-body">
+          <ul class="thumbnails"></ul>
+        </div>
+        <div class="modal-footer">
+          <h4>{{ _("Upload More Images") }}</h4>
+          <form action="__imagesUrl__" method="post"
+                enctype="multipart/form-data"
+                class="form-inline">
+            {{ csrf() }}
+            {{ image_form.item.as_hidden() }}
+            {{ image_form.images }}
+            <input type="submit" value="{{ _("Upload") }}" class="btn" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <script id="item-image-template" type="text/html">
+    <a class="thumbnail">
+      <img src="__image__" alt="" />
+    </a>
+    <div class="controls">
+      <a class="is-default">{{ _("Make Default") }}</a>
+      <a class="delete">{{ _("Delete") }}</a>
+    </div>
+  </script>
+{% endblock %}
+
+
+{% block js_ready %}
+  {{ super() }}
+  window.app = new ItemManageRouter({
+    id: {{ user.store.id }},
+    items: {{ items_json|safe }}, // first page
+    itemsTotal: {{ items_total }}, // number of items (all pages)
+    perPage: {{ items_per_page }}
+  });
+  Backbone.history.start();
+{% endblock %}

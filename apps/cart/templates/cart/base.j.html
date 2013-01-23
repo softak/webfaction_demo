@@ -1,0 +1,28 @@
+{% extends "plain.j.html" %}
+
+{% set section = 'cart' %}
+
+
+{% block title %}{{ _("Cart") }}{% endblock %}
+
+
+{% block content %}
+
+  <div class="page-header tabbed">
+    <h1>{% block cart_header %}{{ _("Cart") }}{% endblock %}</h1>
+
+    {% set cart_nav=[
+      ('personal', url('cart.personal_cart'), _('Personal')),
+      ('social', url('cart.social_cart'), _('Social')),
+    ] %}
+    {#  ('approved_tags', url('cart.approved_tags'), _('Approved orders')), #}
+    {% set cart_nav_active=cart_nav_active|default('personal') %}
+    {{ nav.tabs(cart_nav, cart_nav_active) }}
+  </div>
+
+  <div class="tab-content" id="cart">
+    <div class="tab-pane active">
+      {% block cart_content %}{% endblock %}
+    </div>
+  </div>
+{% endblock %}

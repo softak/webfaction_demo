@@ -1,0 +1,23 @@
+{% extends "accounts/base.j.html" %}
+
+{% import "forms.j.macro" as forms %}
+{% set account_nav_active = "facebook_connect" %}
+
+
+{% block account_content %}
+  <section>
+    <a href="TURN_OFF_URL" class="btn active">{{ _("Connect my Facebook wall") }}</a>
+  </section>
+  {{ forms.form(form,
+                csrf(),
+                "",
+                submit_text=_("Save"),
+                class="form-horizontal footing") }}
+
+  {# When notifications off  #}
+  {#
+  <section>
+    <a href="TURN_ON_URL" class="btn">{{ _("Connect my Facebook wall") }}</a>
+  </section>
+  #}
+{% endblock %}

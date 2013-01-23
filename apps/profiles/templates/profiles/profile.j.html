@@ -1,0 +1,62 @@
+{% extends "plain.j.html" %}
+
+{% import "friendship_controls.j.macro" as friendship_controls %}
+
+
+{% block title %}{{ _('Profile') }}{% endblock %}
+
+
+{% block content %}
+  <div id="profile">
+    <div class="page-header">
+      <h1>
+        <img src="{{ profile.avatar_small }}" alt="" />
+        {{ requested_user.get_full_name() }}
+        {% if requested_user == user %}
+          <small>{{ _("it's you") }}</small>
+        {% endif %}
+      </h1>
+    </div>
+
+    <section>
+      <dl class="row">
+        <dt class="span2">{{ _('Name') }}:</dt>
+        <dd class="span3"><strong>{{ requested_user.get_full_name() }}</strong></dd>
+      </dl>
+      <dl class="row">
+        <dt class="span2">{{ _("Sex") }}:</dt>
+        <dd class="span3">{% if profile.sex == "M" %}
+          <img src="{{ STATIC_URL }}img/male-icon.png" width="16" height="16" />
+        {% else %}
+          <img src="{{ STATIC_URL }}img/female-icon.png" width="32" height="32" />
+        {% endif %}
+      </dl>
+      <dl class="row">
+        <dt class="span2">{{ _("Age") }}:</dt>
+        <dd class="span3">{{ profile.get_age() }}</dd>
+      </dl>
+    </section>
+
+    <form class="footing">
+      <div class="form-actions">
+        {{ friendship_controls.friendship_controls(user, requested_user) }}
+      </div>
+    </form>
+  </div>
+{% endblock %}
+
+
+<script>
+{% block js_ready %}
+  {{ super() }}
+  $('a.ajaxy').click(function() {
+    var $a = $(this);
+    $.get($a.attr('href'), function(data) {
+        var $p = $('<p />');
+        $p.html(data.message);
+        $a.parent().html();
+    });
+    return false;
+  });
+{% endblock %}
+</script>

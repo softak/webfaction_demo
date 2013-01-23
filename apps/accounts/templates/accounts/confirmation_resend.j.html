@@ -1,0 +1,20 @@
+{% extends "plain.j.html" %}
+
+{% import "forms.j.macro" as forms %}
+
+
+{% block title %}{{ _('Сonfirmation Resend') }}{% endblock %}
+
+
+{% block content %}
+
+  <div class="page-header">
+    <h1>{{ _("Confirmation Resend") }}</h1>
+  </div>
+
+  {{ forms.form(form,
+                csrf(),
+                url("accounts.confirmation_resend"),
+                submit_text=_("Resend"),
+                class="form-horizontal footing") }}
+{% endblock %}

@@ -1,0 +1,230 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="{{ LANG }}" dir={{ DIR }}> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="{{ LANG }}" dir="{{ DIR }}"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="{{ LANG }}" dir="{{ DIR }}"> <![endif]-->
+<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="{{ LANG }}" dir="{{ DIR }}"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <!-- Use the .htaccess and remove these lines to avoid edge case issues.
+       More info: h5bp.com/b/378 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>{% block title %}Shopping Domain{% endblock %}</title>
+
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+
+{% block css %}
+  {{ css("common") }}
+{% endblock %}
+
+  <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
+
+  <!-- All JavaScript at the bottom, except for Modernizr / Respond.
+       Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
+       For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
+
+  {{ js("modernizr") }}
+
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('{{ js("jquery")|escapejs }}')</script>
+</head>
+
+{% import "nav.j.macro" as nav %}
+
+<body>
+
+{% block header %}
+  <header class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+
+        <a class="brand" href="{{ url("pages.home") }}">Shopping Domain</a>
+
+      {% if user.is_authenticated() %}
+        <ul class="nav">
+          <li class="mailbox{% if section == "mailbox" %} active{% endif %}">
+            <a href="{{ url("messages.inbox") }}">
+              <i class="icon-envelope icon-white"></i>
+            {% if messages_inbox_count > 0 -%}
+              <span class="label">{{ messages_inbox_count }}</span>
+            {% endif %}
+            </a>
+          </li>
+
+          <li class="friends{% if section == "friends" %} active{% endif %}">
+          {% if friendship_requests_count > 0 %}
+            <a href="{{ url("friends.view_incoming_requests") }}">
+              <i class="icon-user icon-white"></i>
+              <span class="label">{{ friendship_requests_count }}</span>
+            </a>
+          {% else %}
+            <a href="{{ url("friends.view_friends") }}">
+              <i class="icon-user icon-white"></i>
+            </a>
+          {% endif %}
+          </li>
+
+          <li class="cart{% if section == "cart" %} active{% endif %}">
+            <a href="{{ url("cart.social_cart") }}">
+              <i class="icon-shopping-cart icon-white"></i>
+            </a>
+          </li>
+        </ul>
+
+        <form action="{{ url("stores.search") }}" class="navbar-search">
+          {{ search_form.query }}
+        </form>
+
+        <ul class="nav pull-right">
+        {% if request.user.has_store %}
+          <li{% if auth_nav_active=="manage_store" %} class="active"{% endif %}>
+            <a href="{{ url("stores.manage") }}">{{ _("Manage My Store") }}</a>
+          </li>
+        {% endif %}
+          <li class="dropdown">
+            <a href="#"
+               class="dropdown-toggle"
+               data-toggle="dropdown">
+              {{ user.get_full_name() }}
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="{{ url("profiles.edit") }}">{{ _("Settings") }}</a></li>
+              <li class="divider"></li>
+              <li><a href="{{ url("accounts.logout") }}">{{ _("Log Out") }}</a></li>
+            </ul>
+          </li>
+        </ul>
+      {% else %}
+        <ul class="nav pull-right">
+          <li class="facebook{% if nav_auth_active == "facebook" %} active{% endif %}">
+            <a href="{{ url("accounts.facebook_login") }}">{{ _("Login with Facebook") }}</a>
+          </li>
+          <li class="divider-vertical"></li>
+          <li class="login{% if nav_auth_active == "login" %} active{% endif %}">
+            <a href="{{ url("accounts.login") }}">{{ _("Log In") }}</a>
+          </li>
+          <li class="signup{% if nav_auth_active == "signup" %} active{% endif %}">
+            <a href="{{ url("accounts.signup") }}">{{ _("Sign Up") }}</a>
+          </li>
+        </ul>
+      {% endif %}
+      </div>
+    </div>
+
+    {% if messages %}
+      <div class="messages">
+      {% for message in messages %}
+        <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %}">
+          <a class="close" data-dismiss="alert" href="#">&times;</a>
+          {{ message }}
+        </div>
+      {% endfor %}
+      </div>
+    {% endif %}
+
+  </header>
+{% endblock %}
+
+
+{% block body %}{% endblock %}
+
+{% block footer %}
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="span4">
+          <h5>&copy; 2012 Shopping Domain</h5>
+          <p>{% trans %}Software concepts used in this website are the intellectual property of Shopping Domain and its shareholders.{% endtrans %}</p>
+
+          <br />
+          <h4>{{ _("Stay in Touch") }}</h4>
+          <p class="stay-in-touch">
+            <a href="#" class="twitter">{{ _("Follow Shopping Domaing on Twitter") }}</a>
+            <a href="#" class="facebook">{{ _("Follow Shopping Domain on Facebook") }}</a>
+            <a href="#" class="rss">{{ _("Follow Shopping Domain on RSS") }}</a>
+            <a href="#" class="youtube">{{ ("Follow Shopping Domain on YouTube") }}</a>
+          </p>
+        </div>
+        <div class="span2">
+          <h5>Site</h5>
+          <ul class="unstyled">
+            <li><a href="{{ url("pages.home") }}">{{ _("Home") }}</a></li>
+          {% if not user.is_authenticated() %}
+            <li><a href="{{ url("accounts.signup") }}">{{ _("Sign up") }}</a></li>
+          {% endif %}
+          {% if not user.has_store %}
+            <li><a href="{{ url("stores.manage") }}">{{ _("Sell on Shopping Domain") }}</a></li>
+          {% endif %}
+            <li><a href="#">{{ _("Our Clients") }}</a></li>
+            <li><a href="#">{{ _("Pricing") }}</a></li>
+            <li><a href="#">{{ _("Jobs") }}</a> <span class="label label-important">We are hiring</span></li>
+            <li><a href="#">{{ _("For Press") }}</a></li>
+            <li><a href="#">{{ _("Site Map") }}</a></li>
+          </ul>
+        </div>
+        <div class="span2">
+          <h5>{{ _("Developers") }}</h5>
+          <ul class="unstyled">
+            <li><a href="#">{{ _("API") }}</a></li>
+            <li><a href="#">{{ _("Changelog") }}</a></li>
+          </ul>
+
+          <h5>{{ _("Support") }}</h5>
+          <ul class="unstyled">
+            <li><a href="#">{{ _("Help") }}</a></li>
+            <li><a href="#">{{ _("Contact Us") }}</a></li>
+            <li><a href="#">{{ _("Feedback") }}</a></li>
+          </ul>
+        </div>
+        <div class="span4">
+          <h4>{{ _("Help Us") }}</h4>
+          <p>Spread the word with a badge. Copy and paste the code below then add it to your page.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+{% endblock %}
+
+  <div id="lightbox-wrapper">
+    <div id="lightbox-position"></div>
+  </div>
+  <!-- JavaScript at the bottom for fast page loading -->
+
+  {% block js %}
+    {{ js("public") }}
+  {% endblock %}
+
+  <script type="text/javascript">
+    $(function() {
+    $(".alert-message").alert()
+    {% block js_ready %}{% endblock %}
+    });
+  </script>
+
+  <!-- Change UA-XXXXX-X to be your site's ID -->
+  <script>
+    window._gaq = [['_setAccount','UAXXXXXXXX1'],['_trackPageview'],['_trackPageLoadTime']];
+    //Modernizr.load({
+    //  load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
+    //});
+  </script>
+
+  {# Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
+     chromium.org/developers/how-tos/chrome-frame-getting-started #}
+  <!--[if lt IE 7 ]>
+    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+    <![endif]-->
+</body>
+</html>

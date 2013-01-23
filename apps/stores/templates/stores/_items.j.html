@@ -1,0 +1,139 @@
+<div id="store">
+
+  <div class="page-header">
+  <script class="storeTemplate" type="text/html">
+    <h1>__name__</h1>
+
+    {#
+    <ul class="pills pull-right">
+      <li><a href="#">{{ _('Store Specials') }}</a></li>
+      <li><a href="#">{{ _("Today's Deals") }}</a></li>
+      <li class="active"><a href="#">{{ _('Store Products') }}</a></li>
+      <li><a href="#">{{ _('Store Info') }}</a></li>
+      <li><a href="#">{{ _('Contact Store') }}</a></li>
+    </ul>
+    #}
+  </script>
+  </div>
+
+  <div class="row">
+    <aside class="span3">
+
+      <section class="store-info cloud">
+      <script class="storeTemplate" type="text/html">
+        <p class="name">__name__</p>
+        <address>__address__</address>
+        <p class="phone">Tel.: __phone__</p>
+      </script>
+      </section>
+
+      <div class="shoppers">
+
+        <h6>{{ _('Friends Buying Here') }}</h6>
+        <ul class="unstyled">
+
+          <li class="favorite">
+          <a href="#">
+            <img src="http://www.gravatar.com/avatar/08cdc53e3585882d71317523631564c2?size=28" />
+            <span class="name">Alexei Selivanov</span>
+          </a>
+          </li>
+
+          <li class="favorite">
+          <a href="#">
+            <img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?size=28" />
+            <span class="name">Beau Lebens</span>
+          </a>
+          </li>
+
+          <li>
+          <a href="#">
+            <img src="http://www.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?size=28" />
+            <span class="name">Matt Mullenweg</span>
+          </a>
+          </li>
+
+        </ul>
+
+        <h6>{{ _('Other Shoppers Here') }}</h6>
+        <ul class="unstyled">
+
+          <li class="favorite">
+          <a href="#">
+            <img src="http://www.gravatar.com/avatar/1ad9e5c98d81c6815a65dab5b6e1f669?size=28" />
+            Gary Pendergast
+          </a>
+          </li>
+
+          <li>
+          <a href="#">
+            <img src="http://www.gravatar.com/avatar/4e84843ebff0918d72ade21c6ee7b1e4?size=28" />
+            Andrew Ozz
+          </a>
+          </li>
+
+          <li>
+          <a href="#">
+            <img src="http://www.gravatar.com/avatar/8e6e7e85e416fd569d0f821f6fbc4c2f?size=28" />
+            Mark
+          </a>
+          </li>
+
+          <li>
+          <a href="#">
+            <img src="http://www.gravatar.com/avatar/e5dae0bd2dea55f013b2ffd49d6e6f1d?size=28" />
+            Sara Rosso
+          </a>
+          </li>
+
+          <li>
+          <a href="#">
+            <img src="http://1.gravatar.com/avatar/8f0c9789bd69a98b3103bcefa878f1bb?s=28" />
+            Lori
+          </a>
+          </li>
+        </ul>
+        <div class="show-all">
+          <a href="#">Show all</a>
+        </div>
+      </div>
+    </aside>
+
+    <div class="product-list span9">
+
+      <div class="loader"></div>
+      <p class="empty hide">{% trans %}Store hasn't listed items yet.{% endtrans %}</p>
+
+      <section class="inset"{% if store %}{{ gen_backround(store)|safe }}{% endif %}>
+        <ul class="items unstyled"></ul>
+        <script class="itemTemplate" type="text/html">
+          <a href="/stores/items/__id__/" class="image"><img src="__default_image__" width="150" height="150" /></a>
+          <a href="/stores/items/__id__/" class="caption">__name__</a>
+          <div class="price">
+            <span class="original money">__price__</span>
+          </div>
+
+          {# TODO #}
+          <div class="best-offer">Best offer: <span class="money">__best_offer_price__</span></div>
+          <div class="time-left"><% if (best_offer_finishes_in) { %>Finishes <span>__best_offer_finishes_in__</span><% } %></div>
+        </script>
+
+        <div class="pagination">
+          <script class="paginatorTemplate" type="text/html">
+            <ul>
+              <li class="prev<% if (!collection.hasPrevPage()) { %> disabled<% } %>"><a>{{ _('Previous') }}</a></li>
+
+            <% _(pages).each(function (number) { %>
+              <li class="page-number<% if (collection.page == number) { %> active<% } %>">
+                <a data-number="__number__">__number__</a>
+              </li>
+            <% }); %>
+
+          <li class="next<% if (!collection.hasNextPage()) { %> disabled<% } %>"><a>{{ _('Next') }}</a></li>
+            </ul>
+          </script>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

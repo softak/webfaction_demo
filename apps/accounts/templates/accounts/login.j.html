@@ -1,0 +1,49 @@
+{% extends "plain.j.html" %}
+
+{% import "forms.j.macro" as forms %}
+{% set nav_auth_active = "login" %}
+
+
+{% block title %}{{ _("Login") }}{% endblock %}
+
+
+{% block content %}
+
+  <div class="page-header">
+    <h1>{{ _("Login") }}</h1>
+  </div>
+
+  <section>
+    <p>
+    {% trans resend_url=url('accounts.confirmation_resend') -%}
+      Did not receive your confirmation email yet? 
+      <a href="{{ resend_url }}">Send</a> it again.
+    {%- endtrans %}
+    </p>
+  </section>
+
+  <form id="login-form" action="" method="POST"
+        class="form-horizontal footing">
+
+    {{ csrf() }}
+    {{ forms.form_bare(form, exclude=["remember_me"]) }}
+
+    <div class="form-actions">
+
+      <input type="submit" value="{{ _("Log In") }}" class="btn" />
+
+      <label class="checkbox inline remember-me">
+        {{ form.remember_me }}{{ form.remember_me.label }}
+      </label>
+    </div>
+  </form>
+{% endblock %}
+
+<script>
+{% block js_ready %}
+  $('#login-form .remember-me').tooltip({
+    title: '{{ form.remember_me.help_text }}',
+    placement: 'bottom'
+  });
+{% endblock %}
+</script>

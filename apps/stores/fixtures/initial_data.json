@@ -1,0 +1,209 @@
+[
+    {
+        "pk": 1, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Books",
+            "icon": "category-icons/books.png",
+            "marker": "category-markers/books.png"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Gifts",
+            "icon": "category-icons/gifts.png",
+            "marker": "category-markers/gifts.png"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Movies",
+            "icon": "category-icons/movies.png",
+            "marker": "category-markers/movies.png"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Music",
+            "icon": "category-icons/music.png",
+            "marker": "category-markers/music.png"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Games",
+            "icon": "category-icons/games.png",
+            "marker": "category-markers/games.png"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Electronics",
+            "icon": "category-icons/electronics.png",
+            "marker": "category-markers/electronics.png"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Computers",
+            "icon": "category-icons/computers.png",
+            "marker": "category-markers/computers.png"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Home, Sweet Home",
+            "icon": "category-icons/home.png",
+            "marker": "category-markers/home.png"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Garden",
+            "icon": "category-icons/garden.png",
+            "marker": "category-markers/garden.png"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Tools",
+            "icon": "category-icons/tools.png",
+            "marker": "category-markers/tools.png"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Health",
+            "icon": "category-icons/health.png",
+            "marker": "category-markers/health.png"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Beauty",
+            "icon": "category-icons/beauty.png",
+            "marker": "category-markers/beauty.png"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Toys",
+            "icon": "category-icons/toys.png",
+            "marker": "category-markers/toys.png"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Kids",
+            "icon": "category-icons/kids.png",
+            "marker": "category-markers/kids.png"
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Baby",
+            "icon": "category-icons/baby.png",
+            "marker": "category-markers/baby.png"
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Clothing",
+            "icon": "category-icons/clothing.png",
+            "marker": "category-markers/clothing.png"
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Shoes",
+            "icon": "category-icons/shoes.png",
+            "marker": "category-markers/shoes.png"
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Jewelry",
+            "icon": "category-icons/jewelry.png",
+            "marker": "category-markers/jewelry.png"
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Sports",
+            "icon": "category-icons/sports.png",
+            "marker": "category-markers/sports.png"
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Outdoors",
+            "icon": "category-icons/outdoors.png",
+            "marker": "category-markers/outdoors.png"
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Pets",
+            "icon": "category-icons/pets.png",
+            "marker": "category-markers/pets.png"
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Automotive",
+            "icon": "category-icons/automotive.png",
+            "marker": "category-markers/automotive.png"
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "stores.category", 
+        "fields": {
+            "name": "Industrial",
+            "icon": "category-icons/industrial.png",
+            "marker": "category-markers/industrial.png"
+        }
+    }
+]

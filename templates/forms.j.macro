@@ -1,0 +1,73 @@
+{% macro input(field, help_text=false) -%}
+<div class="control-group{% if field.errors %} error{% endif %}">
+  <label for="id_{{ field.html_name }}" class="control-label">{{ field.label }}</label>
+  <div class="controls">
+    {{ field }}
+
+    {% if field.errors %}
+      {% if field.errors|length == 1 %}
+        <span class="help-inline">{{ field.errors.0 }}</span>
+      {% else %}
+        <span class="help-block">
+          <ul>
+          {% for e in field.errors %}
+            <li>{{ e }}</li>
+          {% endfor %}
+          </ul>
+        </span>
+      {% endif %}
+    {% endif %}
+  {% if help_text %}
+    <span class="help-block">{{ help_text|safe() }}</span>
+  {% endif %}
+  {% if field.help_text %}
+    <span class="help-block">{{ field.help_text }}</span>
+  {% endif %}
+  </div>
+</div>
+{%- endmacro %}
+
+{% macro form_bare(form, exclude=[], legend='') -%}
+  {% if legend %}
+    <legend>{{ legend }}</legend>
+  {% endif %}
+  {% if form.non_field_errors() %}
+    <section>
+      <div class="alert alert-block alert-error">
+      {% if form.non_field_errors()|length == 1 %}
+        <p>{{ form.non_field_errors()[0] }}</p>
+      {% else %}
+        {{ form.non_field_errors() }}
+      {% endif %}
+      </div>
+    </section>
+  {% endif %}
+  {% for field in form.fields %}
+    {% if form[field].field.widget.__class__.__name__ == 'HiddenInput' %}
+      {{ form[field] }}
+    {% elif field not in exclude %}
+      {{ input(form[field]) }}
+    {% endif %}
+  {% endfor %}
+{% endmacro %}
+
+{% macro form(form, csrf, action='', method='post', class='form-horizontal', legend='', submit_text='Submit', exclude=[], autocomplete='on', id='') -%}
+  <form action="{{ action }}"
+      {%- if id -%}
+        id="{{ id }}"
+      {%- endif -%}
+        class="{{ class }}"
+      {%- if form.is_multipart -%}
+        enctype="multipart/form-data"
+      {%- endif -%}
+        method="{{ method }}"{% if autocomplete == 'off' %} autocomplete="off"{% endif %}>
+    {{ csrf }}
+    <fieldset>
+      {{ form_bare(form, exclude, legend) }}
+
+      <div class="form-actions">
+        <input type="submit" value="{{ submit_text }}" class="btn default" />
+      </div>
+    </fieldset>
+  </form>
+{%- endmacro %}

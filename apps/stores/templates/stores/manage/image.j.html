@@ -1,0 +1,23 @@
+{% extends "stores/manage/base.j.html" %}
+
+{% import "forms.j.macro" as forms %}
+{% set store_nav_active="image" %}
+
+
+{% block title %}{{ _("Store Front Image") }}{% endblock %}
+
+
+{% block manage_content %}
+  {% if image %}
+    <section>
+      <p>Current image:</p>
+      <img src="{{ thumbnail(image, "500x500").url }}" />
+    </section>
+  {% endif %}
+
+  {{ forms.form(form,
+                csrf(),
+                url("stores.store_image"),
+                class="form-horizontal footing",
+                submit_text=_("Upload")) }}
+{% endblock %}

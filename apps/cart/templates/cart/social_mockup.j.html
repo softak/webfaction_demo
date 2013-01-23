@@ -1,0 +1,391 @@
+{% extends "cart/base.j.html" %}
+
+{% set section='cart' %}
+
+{% block title %}Cart Mockup{% endblock %}
+
+{% set cart_nav_active='social' %}
+
+{% block cart_content %}
+  <section>
+    <h6>1. Select Shipping Method</h6>
+    <p>Before you can proceed with payment you first have to choose a shipping method for your social purchases.
+    </p>
+  </section>
+
+  <ul class="buys  unstyled">
+
+    {# 1. Non-expired initial state #}
+    <li>
+      <div class="header">
+        <a class="buyer you">
+          <img src="http://www.gravatar.com/avatar/08cdc53e3585882d71317523631564c2?size=28" />
+          <span class="name">Alexei Selivanov</span>
+        </a>
+        is buying at
+        <a class="store" href="#">Electronics Store</a>
+        <span class="time-left">in 5d 3h 45m</span>
+        <span class="shipping">
+          <button class="select  btn">Select Shipping Method</button>
+        </span>
+      </div>
+
+      <ul class="tags  unstyled">
+        <li>
+          <img class="thumb" src="{{ STATIC_URL }}img/temp-item-thumb-cart-2.jpg" width="80" height="80" />
+          <div class="caption"><a href="#">iPhone 4 - 16GB - Black (AT&amp;T)</a></div>
+          <div class="price">
+            <span class="original">$450.00</span>
+            <span class="current">$399.00</span>
+          </div>
+          <div class="controls">
+          {% set items=1 %}
+          <span class="in-cart">{% trans %}{{ items }} in cart{% endtrans %}</span>
+            <a class="change">{{ _('[Change]') }}</a>
+            <a class="remove">{{ _('[Remove]') }}</a>
+
+            <form>
+              <input class="quantity" type="text" value="1" />
+              <input type="submit" class="btn default" value="{{ _('Update') }}" />
+            </form>
+          </div>
+        </li>
+        <li>
+          <img class="thumb" src="{{ STATIC_URL }}img/temp-item-thumb-cart-3.jpg" width="80" height="80" />
+          <div class="caption"><a href="#">LunaTik TikTok Wrist Watch Case for iPod Nano 6G - White</a></div>
+          <div class="price">
+            <span class="original">$45.00</span>
+            <span class="current">$38.99</span>
+          </div>
+          <div class="controls">
+            {% set items=2 %}
+            <span class="in-cart">{% trans %}{{ items }} in cart{% endtrans %}</span>
+            <a class="change">{{ _('[Change]') }}</a>
+            <a class="remove">{{ _('[Remove]') }}</a>
+
+            <form>
+              <input type="text" class="quantity" value="{{ items }}" />
+              <input type="submit" class="btn default" value="{{ _('Update') }}" />
+            </form>
+          </div>
+        </li>
+      </ul>
+    </li>
+
+    {# Non-expired and request sent #}
+    <li>
+      <div class="header">
+        <a class="buyer">
+          <img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?size=28" />
+          <span class="name">Beau Lebens</span>
+        </a>
+
+        is buying at
+        <a class="store" href="#">Second Hand Book Store</a>
+
+        {# TODO link to the rules page #}
+        <span class="time-left">16 hours</span>
+
+        <span class="shipping sent">
+          Postage price request sent
+          <button class="btn btn-small" onclick="window.confirm('Are you sure?');">Cancel</button>
+        </span>
+      </div>
+
+      <ul class="tags  unstyled">
+        <li>
+          <a class="thumb">
+            <img src="{{ STATIC_URL }}img/temp-item-thumb-cart-4.jpg" width="80" height="80" alt="" />
+          </a>
+
+          <div class="caption"><a href="#">The Unofficial Guide to Las Vegas</a></div>
+
+          <div class="price">
+            <span class="original">$55.00</span>
+            <span class="current">$25.00</span>
+          </div>
+
+          <div class="controls">
+            {% set items=2 %}
+            <span class="in-cart">{% trans %}{{ items }} in cart{% endtrans %}</span>
+          </div>
+        </li>
+      </ul>
+    </li>
+
+    {# Expired and request sent #}
+    <li class="expired">
+      <div class="header">
+        <a class="buyer">
+          <img src="http://www.gravatar.com/avatar/1ad9e5c98d81c6815a65dab5b6e1f669?size=28" />
+          Gary Pendergast
+        </a>
+
+        has bought at
+        <a class="store" href="#">Second Hand Book Store</a>
+
+        {# TODO link to the rules page #}
+        <span class="time-left">
+          10 hours ago
+          <a href="#" rel="tooltip"
+            title="You have to pay in 2 days after seller has responded to your request."><i class="icon-exclamation-sign"></i></a>
+
+        <span class="shipping sent">
+          Postage price request sent
+          <button class="btn btn-small" onclick="window.confirm('Are you sure?');">Cancel</button>
+        </span>
+      </div>
+
+      <ul class="tags  unstyled">
+        <li>
+          <a class="thumb">
+            <img src="{{ STATIC_URL }}img/temp-item-thumb-cart-1.jpg" width="80" height="80" alt="" />
+          </a>
+          <div class="caption"><a href="#">Flashpoint (Hardcover)</a></div>
+          <div class="price">
+            <span class="original">$50.00</span>
+            <span class="current">$47.50</span>
+          </div>
+          <div class="controls">
+            {% set items=2 %}
+            <span class="in-cart">{% trans %}{{ items }} in cart{% endtrans %}</span>
+          </div>
+        </li>
+        <li>
+          <a class="thumb">
+            <img src="{{ STATIC_URL }}img/temp-item-thumb-cart-4.jpg" width="80" height="80" alt="" />
+          </a>
+
+          <div class="caption"><a href="#">The Unofficial Guide to Las Vegas</a></div>
+
+          <div class="price">
+            <span class="original">$55.00</span>
+            <span class="current">$25.00</span>
+          </div>
+
+          <div class="controls">
+            {% set items=2 %}
+            <span class="in-cart">{% trans %}{{ items }} in cart{% endtrans %}</span>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <hr />
+
+  <section>
+    <h6>2. Ready to Pay</h6>
+    <p>You can now pay for items for which a shipping method if defined and postage price set.</p>
+  </section>
+
+  <ul class="buys ready-to-pay  unstyled">
+
+    <li class="ready-to-pay">
+      <div class="header">
+        <a class="buyer you">
+          <img src="http://www.gravatar.com/avatar/08cdc53e3585882d71317523631564c2?size=28" />
+          <span class="name">Alexei Selivanov</span>
+        </a>
+        is buying at
+        <a class="store" href="#">Electronics Store</a>
+        <span class="time-left">in 5d 3h 45m</span>
+        <span class="shipping">
+          You will pick it up
+        </span>
+        <a class="cancel" onclick="window.confirm('Are you sure?');">Cancel</a>
+      </div>
+
+      <ul class="tags  unstyled">
+        <li>
+          <img class="thumb" src="{{ STATIC_URL }}img/temp-item-thumb-cart-2.jpg" width="80" height="80" />
+          <div class="caption"><a href="#">iPhone 4 - 16GB - Black (AT&amp;T)</a></div>
+          <div class="price">
+            <span class="original">$450.00</span>
+            <span class="current">$399.00</span>
+          </div>
+          <div class="controls">
+          {% set items=1 %}
+          <span class="in-cart">{% trans %}{{ items }} in cart{% endtrans %}</span>
+          </div>
+        </li>
+        <li>
+          <img class="thumb" src="{{ STATIC_URL }}img/temp-item-thumb-cart-3.jpg" width="80" height="80" />
+          <div class="caption"><a href="#">LunaTik TikTok Wrist Watch Case for iPod Nano 6G - White</a></div>
+          <div class="price">
+            <span class="original">$45.00</span>
+            <span class="current">$38.99</span>
+          </div>
+          <div class="controls">
+            {% set items=2 %}
+            <span class="in-cart">{% trans %}{{ items }} in cart{% endtrans %}</span>
+          </div>
+        </li>
+      </ul>
+    </li>
+
+    <li class="ready-to-pay">
+      <div class="header">
+        <a class="buyer">
+          <img src="http://www.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?size=28" />
+          <span class="name">Matt Mullenweg</span>
+        </a>
+
+        is buying at
+        <a class="store" href="#">Second Hand Book Store</a>
+
+        {# TODO link to the rules page #}
+        <span class="time-left">in 5 hours</span>
+
+        <span class="shipping">
+          Postage price is <span class="money">$10.24</span>
+        </span>
+        <a class="cancel" onclick="window.confirm('Are you sure?');">Cancel</a>
+      </div>
+
+      <ul class="tags  unstyled">
+        <li>
+          <a class="thumb">
+            <img src="{{ STATIC_URL }}img/temp-item-thumb-cart-4.jpg" width="80" height="80" alt="" />
+          </a>
+
+          <div class="caption"><a href="#">The Unofficial Guide to Las Vegas</a></div>
+
+          <div class="price">
+            <span class="original">$55.00</span>
+            <span class="current">$25.00</span>
+          </div>
+
+          <div class="controls">
+            {% set items=2 %}
+            <span class="in-cart">{% trans %}{{ items }} in cart{% endtrans %}</span>
+          </div>
+        </li>
+      </ul>
+    </li>
+
+    <li class="ready-to-pay expired">
+      <div class="header">
+        <a class="buyer">
+          <img src="http://www.gravatar.com/avatar/1ad9e5c98d81c6815a65dab5b6e1f669?size=28" />
+          Gary Pendergast
+        </a>
+
+        has bought at
+        <a class="store" href="#">Second Hand Book Store</a>
+
+        {# TODO link to the rules page #}
+        <span class="time-left">
+          1 day ago
+          <a href="#" rel="tooltip"
+            title="You have to pay in 2 days after seller has responded to your request."><i class="icon-exclamation-sign"></i></a>
+
+        <span class="shipping">
+          Postage price is <span class="price">$20.24</span>
+        </span>
+
+        <a class="cancel" onclick="window.confirm('Are you sure?');">Cancel</a>
+      </div>
+
+      <ul class="tags  unstyled">
+        <li>
+          <a class="thumb">
+            <img src="{{ STATIC_URL }}img/temp-item-thumb-cart-1.jpg" width="80" height="80" alt="" />
+          </a>
+          <div class="caption"><a href="#">Flashpoint (Hardcover)</a></div>
+          <div class="price">
+            <span class="original">$50.00</span>
+            <span class="current">$47.50</span>
+          </div>
+          <div class="controls">
+            {% set items=2 %}
+            <span class="in-cart">{% trans %}{{ items }} in cart{% endtrans %}</span>
+          </div>
+        </li>
+        <li>
+          <a class="thumb">
+            <img src="{{ STATIC_URL }}img/temp-item-thumb-cart-4.jpg" width="80" height="80" alt="" />
+          </a>
+
+          <div class="caption"><a href="#">The Unofficial Guide to Las Vegas</a></div>
+
+          <div class="price">
+            <span class="original">$55.00</span>
+            <span class="current">$25.00</span>
+          </div>
+
+          <div class="controls">
+            {% set items=2 %}
+            <span class="in-cart">{% trans %}{{ items }} in cart{% endtrans %}</span>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <form class="footing">
+    <div class="form-actions">
+      <button class="btn">Proceed to Checkout</button>
+    </div>
+  </form>
+
+  <div id="shipping-modal" class="modal hide">
+    <div class="modal-header">
+      <a class="close" data-mismiss="modal">&times;</a>
+      <h3>Select Shipping Method</h3>
+    </div>
+    <div class="modal-body">
+      <form class="form-horizontal">
+        <div class="control-group">
+          <label class="control-label">Shipping method</label>
+          <div class="controls">
+            <label class="radio">
+              <input type="radio" name="shipping" value="pickup">In-Store Pick-Up</input>
+            </label>
+            <label class="radio">
+              <input type="radio" name="shipping" value="delivery">Delivery</input>
+              <div class="help-block">
+                <p>Postage price request will be made in the case of <strong>delivery</strong> shipment method. <a href="#">Read more&hellip;</a></p>
+              </div>
+            </label>
+          </div>
+        </div>
+        <div class="shipping-address control-group hide">
+          <label class="control-label" for="shipping-address">Shipping Address</label>
+          <div class="controls">
+            <textarea class="input-xlarge" id="shipping-address" rows="3"></textarea>
+            <p class="help-block">Please use <a href="#">International Address Format Guide</a> as a reference.</p>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <input type="submit" class="btn" value="Select" />
+      <button class="btn">Cancel</button>
+    </div>
+  </div>
+{% endblock %}
+
+<script>
+{% block js_ready %}
+  {{ super() }}
+
+  $('.tags li .controls .change').click(function() {
+    $(this).closest('li').addClass('active');
+  });
+
+  $('.shipping button.select').click(function() {
+    $('#shipping-modal input[type="submit"]').attr('disabled', 'disabled');
+    $('#shipping-modal').modal();
+  });
+
+  $('#shipping-modal form input[name=shipping]').change(function() {
+    $('#shipping-modal input[type="submit"]').removeAttr('disabled');
+    if ($('#shipping-modal form input[name=shipping]:checked').val() == 'delivery') {
+      $('#shipping-modal form .shipping-address').show();
+    } else {
+      $('#shipping-modal form .shipping-address').hide();
+    }
+  });
+{% endblock %}
+</script>

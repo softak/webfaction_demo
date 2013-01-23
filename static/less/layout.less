@@ -1,0 +1,117 @@
+@import "common";
+@import "bootstrap/mixins";
+
+
+body {
+  background: #f7f7f7 url(../img/bg.png);
+  padding-top: 40px;
+}
+
+
+header {
+
+  .brand {
+    text-indent: -9999px;
+    background: url(../img/shopping-domain.png) no-repeat center center;
+    width: 159px;
+    height: 28px;
+    margin-top: -4px;
+    margin-bottom: -4px;
+  }
+
+  .nav {
+    .facebook {
+      a {
+        background: url(../img/facebook-icon.png) no-repeat 10px center;
+        padding-left: 34px;
+      }
+    }
+  }
+
+  .messages {
+    .alert {
+      margin-bottom: 0;
+      .border-radius(0);
+      .opacity(75);
+    }
+  }
+}
+
+#content {
+
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  &.plain {
+    background: #FFF;
+    .border-radius();
+    .box-shadow();
+
+    .page-header {
+      margin-top: 0;
+      padding-top: 18px;
+      padding-left: 20px;
+      background: #F9F9F9;
+      .border-radius(5px 5px 0 0);
+    }
+
+    section {
+      padding: 0 20px 9px 20px;
+    }
+
+    form.footing {
+
+      fieldset {
+        legend {
+          padding-left: 20px;
+        }
+        .control-group {
+          label {
+            padding-left: 20px;
+            .box-sizing(border-box);
+          }
+        }
+      }
+
+      margin-bottom: 0;
+      .form-actions {
+        margin-bottom: 0;
+        .border-radius(0 0 5px 5px);
+      }
+    }
+  }
+}
+
+
+footer {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid @sd-red;
+
+  .stay-in-touch {
+    .sprite {
+      display: inline-block;
+      background-repeat: no-repeat;
+      width: 31px;
+      height: 32px;
+      margin: 1px 0 0;
+      text-indent: -9999em;
+    }
+
+    a {
+      &.twitter { .sprite;
+        background-image: url(../img/twitter-sprite.png);
+      }
+      &.facebook { .sprite;
+        background-image: url(../img/facebook-sprite.png);
+      }
+      &.rss { .sprite;
+        background-image: url(../img/rss-sprite.png);
+      }
+      &.youtube { .sprite;
+        background-image: url(../img/youtube-sprite.png);
+      }
+      &:hover { background-position: 0 -32px; }
+    }
+  }
+}

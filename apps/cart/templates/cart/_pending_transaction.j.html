@@ -1,0 +1,10 @@
+<section>
+  <div class="alert-message block-message warning">
+    <p>
+      You have an outstanding payment operation. 
+      To continue working with cart you have to deal with it.
+      Please <a href="{{ request.user.profile.pending_transaction.get_paypal_url() }}">process</a> checkout or
+      <a href="{{ url('cart.cancel_pending_transaction') }}?back={{ request.get_full_path() }}">cancel</a> payment.
+    </p>
+  </div>
+</section>

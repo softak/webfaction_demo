@@ -1,0 +1,89 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+#item {
+    .social-buys {
+        li { margin-bottom: 15px; }
+    }
+    .social-tag {
+        border: 1px solid #DDD;
+        .border-radius();
+        padding: 5px;
+        background: #f5f5f5;
+        width: 400px;
+        margin-top: 5px;
+    }
+
+    .sidebar {
+        .center-block();
+        width: 400px;
+
+        text-align: center;
+    }
+
+    .enlarged-active-image {
+        .square(150px);
+
+        .center-block();
+        display: block;
+        margin-bottom: 6px;
+
+        border: 1px solid #DDD;
+        .border-radius();
+
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+
+    .carousel {
+        display: inline-block;
+        .clearfix();
+
+        &-window {
+            float: left;
+            position: relative;
+            height: 62px;
+
+            margin: 0 3px;
+
+            overflow: hidden;
+        }
+
+        .next, .prev {
+            float: left;
+            .size(60px, 20px);
+            
+            display: block;
+            padding: 0;
+
+            line-height: 60px;
+            font-size: 150%;
+            text-align: center;
+            
+            background-color: #DDD;
+        }
+
+        &-content {
+            position: absolute;
+            .size(60px, 5000px);
+
+            margin: 0;
+            padding: 0;
+
+            list-style: none;
+
+            li {
+                float: left;
+                .square(60px);
+
+                margin: 0 3px;
+                
+                border: 1px solid #DDD;
+                .border-radius();
+
+                background-repeat: no-repeat;
+                background-position: center center;
+            }
+        }
+    }
+}

@@ -1,0 +1,73 @@
+{% extends "cart/base.j.html" %}
+
+{% set section='cart' %}
+{% set cart_nav_active='personal' %}
+
+
+{% block cart_content %}
+  <script id="personal-buy-template" type="text/html">
+    <div class="header">
+      <a class="store" href="__store_site_url__">__store_name__</a>
+    </div>
+    <ul class="tags  unstyled">
+    </ul>
+  </script>
+
+  <script id="personal-tag-template" type="text/html">
+    <img class="thumb" src="__item_thumb__" width="80" height="80" />
+    <div class="caption"><a href="__item_site_url__">__item_name__</a></div>
+    <div class="price">
+    <% if (price != discounted_price) { %>
+      <span class="original money">__price__</span>
+    <% } %>
+      <span class="current money">__discounted_price__</span>
+    </div>
+    <div class="controls">
+      <span class="in-cart">__quantity__ in cart</span>
+
+      <a class="change">{{ _('[Change]') }}</a>
+      <a class="remove">{{ _('[Remove]') }}</a>
+
+      <div class="loader"></div>
+
+      <form>
+        <input name="quantity" class="quantity" type="text" value="__quantity__" />
+        <input class="btn default" type="submit" value="{{ _('Update') }}" />
+      </form>
+    </div>
+  </script>
+
+  {% if request.user.profile.is_cart_locked %}
+    {% include "cart/_pending_transaction.j.html" %}
+    <ul class="buys  unstyled"></ul>
+  {% else %}
+
+    {% if is_empty %}
+      <section>
+        <p class="empty">{% trans %}Empty.{% endtrans %}</p>
+      </section>
+    {% else %}
+      <ul class="buys  unstyled"></ul>
+
+      <form class="footing">
+        <div class="form-actions">
+          <a class="checkout btn default" href="{{ url('cart.preview_personal_cart') }}">
+            {{ _("Checkout") }}
+          </a>
+        </div>
+      </form>
+    {% endif %}
+
+  {% endif %}
+{% endblock %}
+
+<script>
+{% block js_ready %}
+  {{ super() }}
+
+  window.app = new PersonalCartRouter({
+    cart: {{ cart_json|safe }}
+  });
+  Backbone.history.start();
+{% endblock %}
+</script>

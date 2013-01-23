@@ -1,0 +1,32 @@
+{% extends "stores/manage/base.j.html" %}
+
+{% set store_nav_active='contact_information' %}
+
+{% import "forms.j.macro" as forms %}
+
+{% block title %}{{ _('Manage contact information') }}{% endblock %}
+
+{% block manage_content %}
+  {% if updated %}
+    <section>
+      <div class="alert-message success">
+        <!--<a class="close" href="#">×</a>-->
+        <p>Information updated.</p>
+      </div>
+    </section>
+  {% endif %}
+
+  <form action="" method="post" class="form-horizontal footing">
+    {{ csrf() }}
+    
+    {{ form.non_field_errors() }}
+    {{ forms.input(form.country) }}
+    {{ forms.input(form.address,
+      help_text='About address format you can read <a href="' + url('pages.address-formats') + '">here</a>') }}
+    {{ forms.input(form.phone) }}
+    
+    <div class="form-actions">
+      <input type="submit" value="{{ _('Save') }}" class="btn default" />
+    </div>
+  </form>
+{% endblock %}

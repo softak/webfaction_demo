@@ -1,0 +1,52 @@
+{% extends "cart/base.j.html" %}
+
+{% set section='cart' %}
+{% set cart_nav_active='personal' %}
+
+
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+      <h2>Personal Cart Checkout</h2>
+    </div>
+    <div class="tab-content" id="cart">
+      <div class="tab-pane active">
+
+        <ul class="buys  unstyled">
+          {% for buy in cart.buys %}
+          <li>
+            <div class="header">
+              <span class="store">{{ buy.store_name }}</span>
+            </div>
+
+            <ul class="tags  unstyled">
+              {% for tag in buy.tags %}
+              <li>
+                <img class="thumb" src="{{ tag.item_thumb }}" width="80" height="80" />
+                <div class="caption">{{ tag.item_name }}</div>
+                <div class="checkout-price">
+                  <span class="money">{{ tag.price }}</span> &times;
+                  <span>{{ tag.quantity }}</span> =
+                  <span class="money">{{ tag.price * tag.quantity }}</span>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </li>
+          {% endfor %}
+          <li class="checkout-total">
+            Total: <span class="total money">{{ total_price }}</span>
+          </li>
+        </ul>
+        
+        <form class="footing">
+          <div class="form-actions">
+            <a href="{{ url('cart.approve_personal_cart') }}" class="btn default">{{ _('Pay with PayPal') }}</a>
+            <label class="secondary-action"><a href="{{ url('cart.personal_cart') }}">Edit Cart</a></label>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

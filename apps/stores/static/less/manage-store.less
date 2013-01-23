@@ -1,0 +1,349 @@
+@import "common.less";
+@import "bootstrap/variables.less";
+@import "bootstrap/mixins.less";
+
+.modal.item {
+  form, .actions { margin-bottom: 0; }
+  .images-pane form { padding: 0; padding-top: 12px; }
+}
+
+#manage-store, .modal.item {
+  .new-items {
+      display: none;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: @gridGutterWidth;
+  }
+
+  .items, .new-items {
+    .clearfix();
+
+    ul.list {
+      .clearfix();
+      margin-left: -1 * @gridGutterWidth;
+      margin-top: -1 * @gridGutterWidth;
+      list-style: none;
+
+      li {
+        height: 160px;
+        overflow: hidden;
+        /*.makeColumn(7);*/
+        margin-top: @gridGutterWidth;
+        margin-right: -2px; // borders width
+        position: relative;
+
+        .border-radius();
+        border: 1px solid #ddd;
+
+        img, h3 {
+          margin-top: 5px;
+        }
+
+        img {
+          float: left;
+          margin: 5px 10px 5px 5px;
+        }
+
+        h3 {
+          line-height: 1;
+        }
+
+        p {
+          margin-top: 5px;
+        }
+
+
+      }
+    }
+  }
+
+  .images-pane .list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    .clearfix();
+    padding-bottom: @gridGutterWidth;
+
+    li {
+      /*.makeColumn(4);*/
+      margin-right: -2px; // borders width
+      position: relative;
+
+      border: 1px solid #ddd;
+      .border-radius();
+      .box-shadow(0 1px 1px rgba(0,0,0,.075));
+      margin-top: @gridGutterWidth;
+
+      .thumb {
+        width: 100px;
+        height: 100px;
+
+        .center-block();
+        margin-top: 5px;
+        margin-bottom: 5px;
+
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
+
+      &.disabled {
+        background-color: #f5f5f5;
+
+        .controls {
+          visibility: hidden;
+        }
+      }
+
+      &.default {
+        border-color: @sd-red;
+        .is-default {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .discounts {
+
+    tr {
+
+      .controls {
+
+        white-space: nowrap;
+
+        a {
+          cursor: pointer;
+
+          &.delete { }
+          &.save, &.cancel { display: none; }
+        }
+
+        .loader {
+          display: none;
+          width: 20px;
+          height: 20px;
+          background: url(../img/small-loader.gif) no-repeat center center;
+        }
+      }
+
+      &.active {
+        a {
+          &.delete { display: none; }
+          &.save, &.cancel { display: inline; }
+        }
+      }
+
+      &.loading {
+
+        .controls {
+          a { display: none; }
+          .loader { display: block; }
+        }
+      }
+    }
+  }
+  
+  // Controls
+
+  // Common
+  
+  .items, .new-items {
+    .controls {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      font-size: 11px;
+      background: white;
+      padding: 3px 5px;
+      
+      border: 1px solid #ddd;
+      .border-radius();
+      .box-shadow(0 1px 1px rgba(0,0,0,.075));
+
+      .delete {
+        display: inline-block;
+        background: url(../img/delete-sprite.png) no-repeat right center;
+        width: 16px;
+        height: 16px;
+        text-indent: -9999px;
+        
+        &:hover {
+          background-position: left;
+        }
+      }
+    }
+  }
+
+  // Item controls
+
+  .items, .new-items {
+    .controls {
+      .edit {
+        display: inline-block;
+        background: url(../img/edit-sprite.png) no-repeat right center;
+        width: 16px;
+        height: 16px;
+        text-indent: -9999px;
+
+        &:hover {
+          background-position: left;
+        }
+      }
+      .delete {
+        margin-left: 1em;
+
+      }
+    }
+  }
+
+  // Image controls
+
+  .images-pane {
+    .thumbnails {
+      margin-left: -15px;
+      margin-right: -15px;
+
+      li {
+        position: relative;
+
+        .thumbnail {
+          img {
+            width: 160px;
+            height: 160px;
+          }
+        }
+
+        .controls {
+          display: none; // by default
+
+          .is-default {
+            position: absolute;
+            bottom: 9px;
+            right: 9px;
+            font-size: 11px;
+            text-shadow: 1px 1px 0 rgba(255,255,255,.75);
+            cursor: pointer;
+          }
+
+          .delete {
+            position: absolute;
+            top: 9px;
+            right: 9px;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: url(../img/destroy-sprite.png) no-repeat 0 0;
+            text-indent: -9999px;
+            cursor: pointer;
+            &:hover {
+              background-position: 0 -20px;
+            }
+          }
+        }
+
+        &.default {
+          .thumbnail {
+            border-color: @sd-red;
+          }
+        }
+      }
+    }
+  }
+
+
+  .discount-groups {
+
+    tr {
+
+      .controls {
+
+        width: 1%;
+        white-space: nowrap;
+
+        a {
+          cursor: pointer;
+        }
+
+        .loader {
+          display: none;
+          width: 20px;
+          height: 20px;
+          background: url(../img/small-loader.gif) no-repeat center center;
+        }
+      }
+
+      &.disabled {
+        .controls {
+          a { display: none; }
+          .loader { display: block; }
+        }
+      }
+    }
+  }
+
+  .shipping-requests {
+
+    li {
+      padding-bottom: 9px;
+      .header {
+        padding: 9px 20px;
+        background: #f7f7f7;
+
+        .buyer {
+        line-height: 28px;
+          img {
+            float: left;
+            margin-right: 5px;
+            .border-radius();
+          }
+          &.you .name {
+            font-style: italic;
+          }
+        }
+
+        address {
+          .clearfix();
+          margin-top: 9px;
+          margin-bottom: 0;
+        }
+      }
+
+      ul.items {
+        margin-left: 20px;
+        margin-right: 20px;
+        li {
+          line-height: 28px;
+          .item-summary {
+            float: right;
+            width: 100px;
+          }
+          .item-total {
+            float: right;
+            width: 100px;
+          }
+          &.total {
+            border-top: 1px dotted #ccc;
+            font-weight: bold;
+            span {
+              width: 100px;
+              float: right;
+            }
+          }
+        }
+      }
+
+      .controls {
+        margin: 9px 20px;
+      }
+      .set-price-form {
+        margin: 9px 20px;
+        display: none;
+      }
+
+      &.setting-price {
+        .controls { display: none; }
+        .set-price-form { display: block; }
+      }
+    }
+  }
+}

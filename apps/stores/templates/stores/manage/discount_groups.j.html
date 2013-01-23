@@ -1,0 +1,104 @@
+{% extends "stores/manage/base.j.html" %}
+
+{% set store_nav_active='discount_groups' %}
+
+{% import "forms.j.macro" as forms %}
+
+{% block title %}{{ _("Manage discount groups") }}{% endblock %}
+
+{% block manage_content %}
+  <section>
+    <table class="discount-groups  table table-bordered">
+      <thead>
+        <tr>
+          <th>{{ _("Name") }}</th>
+          <th>{{ _("Discount") }}</th>
+          <th>{{ _("Items") }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <script id="discount-group-template" type="text/html">
+          <td>__name__</td>
+          <td>__discount.name__</td>
+          <td>__items.length__</td>
+          <td class="controls">
+            <a class="edit  btn">Edit</a>
+            <a class="delete  btn">Delete</a>
+            <div class="loader"></div>
+          </td>
+        </script>
+      </tbody>
+    </table>
+  </section>
+
+  <script id="create-discount-group-form-template" type="text/html">
+    <form action="__url__" id="discount-form" method="__method__" 
+          class="form-horizontal footing">
+      <fieldset>
+        <legend>__header__</legend>
+
+        <div class="control-group">
+          <label for="id_name" class="control-label">Discount name</label>
+          <div class="controls">
+            <input id="id_name" type="text" name="name" value="__group&&group.get('name')__" maxlength="100" />
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="id_discount" class="control-label">Discount</label>
+          <div class="controls">
+            <select name="discount" id="id_discount">
+              <% discounts.each(function(discount) { %>
+                <option value="__discount.get('resource_uri')__"
+                  <% if (group && group.get('discount') == discount.id) { %>selected<% } %> 
+                >__discount.get('name')__</option>
+              <% }); %>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label">Items</label>
+          <div class="controls">
+            <% items.each(function(item) { %>
+              <% if (_(items_off).include(item.id) && !(group && _(group.get('items')).include(item.id))) { %>
+                <label class="checkbox disabled">
+              <% } else { %>
+                <label class="checkbox">
+              <% } %>
+                <input type="checkbox"
+                       name="items"
+                       value="__item.get('resource_uri')__"
+                <% if (group && _(group.get('items')).include(item.id)) { %>
+                       checked="checked"
+                <% } else if (_(items_off).include(item.id)) { %>
+                       disabled="disabled"
+                <% } %>/>
+                  __item.get('name')__
+              </label>
+            <% }); %>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="form-actions">
+        <input type="submit" value="__submit_value__" class="btn default" />
+      <% if (group) { %>
+        <button type="reset" class="btn">Cancel</button>
+      <% } %>
+      </div>
+    </form>  
+  </script>
+
+  <form id="discount-form"></form>
+{% endblock %}
+
+{% block js_ready %}
+  {{ super() }}
+  window.app = new DiscountGroupManageRouter({
+    discount_groups: {{ discount_groups_json|safe }},
+    discounts: {{ discounts_json|safe }},
+    items: {{ items_json|safe }}
+  });
+  Backbone.history.start();
+{% endblock %}

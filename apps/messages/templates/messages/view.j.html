@@ -1,0 +1,48 @@
+{% extends "messages/base.j.html" %}
+
+{% if request.user == message.recipient %}
+  {% set friend = message.sender %}
+  {% set section = url('messages.inbox') %}
+  {% set messages_nav_active = 'inbox' %}
+  {% set title = _('Inbox') %}
+{% else %}
+  {% set friend = message.recipient %}
+  {% set section = url('messages.outbox') %}
+  {% set messages_nav_active = 'outbox' %}
+  {% set title = _('Outbox') %}
+{% endif %}
+
+
+{% block title %}{{ title }}{% endblock %}
+
+
+{% block messages_content %}
+  <div class="message active">
+    <img src="{{ friend.profile.avatar_small }}" width="40" height="40" alt="" />
+
+    <span class="user">
+      {{ friend.get_full_name() }} <a href="{{ url('profiles.profile', friend.pk) }}">{{ _('View Profile') }}</a>
+    </span>
+
+    <p class="subject">
+      {{ message.subject }}</p>
+
+    <div class="timestamp">{{ message.sent_at|date('d/m/Y') }}</div>
+
+    <a class="delete"
+       href="{{ url('messages.delete', message.id) }}?next={{ url('messages.outbox') }}">
+      {{ _('Delete') }}</a>
+  </div>
+
+  <div class="message-body">
+    {{ message.body }}
+  </div>
+
+  {% if message.recipient.pk == user.pk %}
+    <form class="footing">
+      <div class="form-actions">
+        <a href="{{ url('messages.reply', message.id) }}" class="btn default">{{ _('Reply') }}</a>
+      </div>
+    </form>
+  {% endif %}
+{% endblock %}

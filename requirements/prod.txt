@@ -1,0 +1,3 @@
+-r ../vendor/src/funfactory/funfactory/requirements/prod.txt
+South==0.7.3
+-e git://github.com/django-extensions/django-extensions#egg=django-extensions

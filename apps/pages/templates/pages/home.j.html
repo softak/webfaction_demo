@@ -1,0 +1,16 @@
+{% extends "simple.j.html" %}
+
+{% block title %}{{ _("Home") }}{% endblock %}
+
+{% block content %}
+  <h1>It's under construction</h1>
+
+  {% if user.is_authenticated() %}
+    <p>However, here's the full store list:
+    <ul>
+    {% for store in stores %}
+      <li><a href="{{ url("stores.view_store", store.id) }}">{{ store.name }}</a></li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,60 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+@sd-red: #D84010;
+
+.box-sizing(@sizing: border-box) {
+  -webkit-box-sizing: @sizing;
+     -moz-box-sizing: @sizing;
+       -o-box-sizing: @sizing;
+          box-sizing: @sizing;
+}
+
+.user-select(@select: none) {
+  -webkit-user-select: @select;
+   -khtml-user-select: @select;
+     -moz-user-select: @select;
+       -o-user-select: @select;
+          user-select: @select;
+}
+
+
+p.empty {
+  color: @grayLight;
+
+  a {
+    color: @gray;
+    text-decoration: underline;
+    &:hover {
+      color: @grayDark;
+    }
+  }
+}
+
+
+section.cloud {
+  background: #FFF;
+  .box-shadow(rgba(0, 0, 0, 0.2) 0 0 2px 0);
+  .border-radius();
+}
+
+//TODO use .well instead
+/*section.inset {*/
+/*  background: #fff;*/
+/*  .box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.2));*/
+/*  .border-radius();*/
+/*}*/
+
+
+
+#id_birthday_month {
+  width: 100px;
+}
+
+#id_birthday_day {
+  width: 50px;
+}
+
+#id_birthday_year {
+  width: 60px;
+}

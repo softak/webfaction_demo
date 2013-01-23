@@ -1,0 +1,30 @@
+{% extends "plain.j.html" %}
+
+{% import "forms.j.macro" as forms %}
+{% set auth_nav_active = "account" %}
+
+
+{% block title %}{{ _("Account") }}{% endblock %}
+
+
+{% block content %}
+  <div class="page-header tabbed">
+    <h1>
+      <img src="{{ user.profile.avatar_small }}" alt="" />
+      {{ _("Your account settings") }}
+    </h1>
+
+    {% set account_nav=[
+      ("profile", url("profiles.edit"), _("Profile")),
+      ("password", url("accounts.password_change"), _("Password")),
+      ("facebook_connect", url("profiles.facebook_connect"), _("Facebook")),
+    ] %}
+    {% set account_nav_active=account_nav_active|default("profile") %}
+    {{ nav.tabs(account_nav, account_nav_active) }}
+  </div>
+  <div id="account" class="tab-content">
+    <div class="tab-pane active">
+      {% block account_content %}{% endblock %}
+    </div>
+  </div>
+{% endblock %}

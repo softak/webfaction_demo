@@ -1,0 +1,8 @@
+src/jingo-minify
+src/django-extensions
+src/django_facebook_oauth
+src/sorl-thumbnail
+src/django-messages
+src/paypal-python
+src/django-tastypie
+src/mimeparse

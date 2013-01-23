@@ -1,0 +1,63 @@
+{% extends "plain.j.html" %}
+
+{% import "nav.j.macro" as nav %}
+{% set auth_nav_active="manage_store" %}
+
+
+{% block title %}{{ _("Manage my store") }}{% endblock %}
+
+
+{% block css %}
+  {{ super() }}
+  {{ css("manage_store") }}
+{% endblock %}
+
+
+{% block js %}
+  {{ super() }}
+  {{ js("manage") }}
+{% endblock %}
+
+
+{% block content %}
+
+  <div id="manage-store">
+  {% if user.has_store and user.store.is_active %}
+    <div class="page-header tabbed">
+      <h1>
+      {% trans store_name=user.store.name %}
+        Manage my <em>{{ store_name }}</em>
+      {% endtrans %}
+      </h1>
+
+      {% set store_nav=[
+        ("home", url("stores.manage"), _("Home")),
+        ("image", url("stores.store_image"), _("Store Window")),
+        ("items", url("stores.manage_items"), _("Products")),
+        ("discounts", url("stores.manage_discounts"), _("Discounts")),
+        ("discount_groups", url("stores.manage_discount_groups"), _("Discount Groups")),
+        ("contact_information", url("stores.manage_contact_information"), _("Contacts")),
+        ("change_shopdesign", url("stores.design"), _("Shop colors")),
+        ("shipping", url("stores.manage_shipping"), _("Shipping Requests"))
+      ] %}
+      {% set store_nav_active=store_nav_active|default("home") %}
+      {{ nav.tabs(store_nav, store_nav_active) }}
+
+    </div>
+
+    {% block manage_content %}{% endblock %}
+  {% else %}
+    <div class="page-header">
+      <h1>{{ _("Start selling on Shopping Domain!") }}</h1>
+    </div>
+
+    <section>
+    {% if user.has_store %}
+      <p>{% trans %}Your store is waiting for approval.{% endtrans %}</p>
+    {% else %}
+      <p>{% trans create_url=url("stores.create_store") %}<a href="{{ create_url }}">Create</a> your store now!{% endtrans %}</p>
+    {% endif %}
+    </section>
+  {% endif %}
+  </div>
+{% endblock %}

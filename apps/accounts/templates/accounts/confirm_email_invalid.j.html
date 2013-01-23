@@ -1,0 +1,17 @@
+{% extends "plain.j.html" %}
+
+
+{% block title %}{{ _('Invalid Link') }}{% endblock %}
+
+
+{% block content %}
+
+  <div class="page-header">
+    <h1>{{ _('Invalid Link') }}</h1>
+  </div>
+
+  <section>
+    <p>{% trans login_url=url('accounts.login'),
+                confirmation_resend_url=url('accounts.confirmation_resend') -%}The email confirmation link was invalid, possibly because it has already been used. Please try to <a href="{{ login_url }}">sign in</a> or <a href="{{ confirmation_resend_url }}">resend confirmation</a>.{% endtrans %}</p>
+  </section>
+{% endblock %}

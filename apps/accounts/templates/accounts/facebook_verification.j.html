@@ -1,0 +1,30 @@
+{% extends "plain.j.html" %}
+
+{% import "forms.j.macro" as forms %}
+{% set nav_auth_active = "facebook" %}
+
+
+{% block title %}{{ _("Connect with Facebook") }}{% endblock %}
+
+
+{% block content %}
+
+  <div class="page-header">
+    <h1>{{ _("Connect with Facebook") }}</h1>
+  </div>
+
+  <section>
+    <p>
+    {% trans -%}
+    If you want to connect your Facebook profile to the existing account, please enter your password.
+    {%- endtrans %}
+    </p>
+  </section>
+
+  {{ forms.form(form,
+                csrf(),
+                request.get_full_path(),
+                submit_text=_("Connect"),
+                class="form-horizontal footing",
+                exclude=["remember_me"]) }}
+{% endblock %}

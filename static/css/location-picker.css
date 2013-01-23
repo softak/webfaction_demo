@@ -1,0 +1,8 @@
+.location-picker .map {
+    width: 500px;
+    height: 500px;
+}
+
+.location-picker .query {
+    width: 500px;
+}

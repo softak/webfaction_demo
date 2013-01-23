@@ -1,0 +1,20 @@
+{% extends "plain.j.html" %}
+
+{% import "forms.j.macro" as forms %}
+
+
+{% block title %}{{ _('Compose Message') }}{% endblock %}
+
+
+{% block content %}
+  <div class="page-header">
+    <h2>{{ _("Compose Message") }} {{ _('to') }} {{ recipient.get_full_name() }}</h2>
+  </div>
+
+  {{ forms.form(form,
+                csrf(),
+                "",
+                submit_text=_("Send"),
+                class="form-horizontal footing",
+                autocomplete="off") }}
+{% endblock %}

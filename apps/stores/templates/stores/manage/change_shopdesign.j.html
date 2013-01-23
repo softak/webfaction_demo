@@ -1,0 +1,45 @@
+{% extends "stores/manage/base.j.html" %}
+
+{% import "forms.j.macro" as forms %}
+{% set store_nav_active='change_shopdesign' %}
+
+
+{% block css %}
+  {{ super() }}
+  {{ css('manage_store') }}
+  {{ css('colorpicker_css') }}
+{% endblock %}
+
+
+{% block js %}
+  {{ super() }}
+  {{ js('manage') }}
+  {{ js('colorpicker_js') }}
+{% endblock %}
+
+
+{% block title %}{{ _('Change shop background') }}{% endblock %}
+
+
+{% block manage_content %}
+  {% if updated %}
+    <section>
+      <div class="alert-message success">
+        <p>Information updated.</p>
+      </div>
+    </section>
+  {% endif %}
+
+  <form action="" method="post" enctype="multipart/form-data" class="form-horizontal footing">
+    {{ csrf() }}
+    
+    {{ form.non_field_errors() }}
+    {{ forms.input(form.background_image) }}
+    {{ forms.input(form.is_repeated) }}
+    {{ forms.input(form.background_color) }}
+    
+    <div class="form-actions">
+      <input type="submit" value="{{ _('Save') }}" class="btn default" />
+    </div>
+  </form>
+{% endblock %}

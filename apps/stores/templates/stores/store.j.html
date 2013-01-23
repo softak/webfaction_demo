@@ -1,0 +1,17 @@
+{% extends "simple.j.html" %}
+
+{% block title %}{{ store.name }}{% endblock %}
+
+
+{% block content %}
+  {% include 'stores/_items.j.html' %}
+{% endblock %}
+
+
+<script>
+{% block js_ready %}
+  {{ super() }}
+  window.storeRouter = new StoreRouter({ id: {{ store.id }} });
+  Backbone.history.start();
+{% endblock %}
+</script>

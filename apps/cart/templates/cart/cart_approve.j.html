@@ -1,0 +1,33 @@
+{% extends "plain.j.html" %}
+
+{% block title %}{% endblock %}
+
+{% block css %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+  <section id="cart">
+    <ul>
+      {% for tag in tags %}
+      <li>
+        <dl>
+          <dt>Item name</dt>
+          <dd>{{ tag.item.name }}</dd>
+          <dt>Item cost</dt>
+          <dd>{{ tag.price }}$</dd>
+          <dt>Quantity</dt>
+          <dd>{{ tag.quantity }}</dd>
+          <dt>Social buy finish date</dt>
+          <dd>{{ tag.buy.finish_date }}</dd>
+        </dl>
+      </li>
+      {% endfor %}
+    </ul>
+    <hr />
+    Total price: {{ total_price }}$
+    <hr />
+    <a href="{{ url('cart.social') }}">Return back and edit cart</a> or
+    <a href="{{ url('cart.create_transaction') }}">pay for these buys</a>
+  </section>
+{% endblock %}

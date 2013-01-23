@@ -1,0 +1,17 @@
+{% extends "plain.j.html" %}
+
+{% set nav_auth_active = 'signup' %}
+
+
+{% block title %}{{ _('Confirmation Sent') }}{% endblock %}
+
+
+{% block content %}
+  <div class="page-header">
+    <h1>{{ _('Confirmation Sent') }}</h1>
+  </div>
+
+  <section>
+    <p>{% trans %}Please confirm your email to proceed. Go and check it!{% endtrans %}</p>
+  </section>
+{% endblock %}

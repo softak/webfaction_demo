@@ -1,0 +1,18 @@
+{% extends "accounts/base.j.html" %}
+
+{% import "forms.j.macro" as forms %}
+
+
+{% block account_content %}
+
+<form action="" method="post" enctype="multipart/form-data"
+  class="form-horizontal footing">
+    {{ csrf() }}
+    {{ forms.form_bare(form) }}
+
+    <div class="form-actions">
+      <input type="submit" value="{{ _('Submit') }}" class="btn default" />
+      <label class="pull-right"><a href="{{ url('profiles.profile') }}">{{ _('Your profile') }}</a></label>
+    </div>
+  </form>
+{% endblock %}

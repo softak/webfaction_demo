@@ -1,0 +1,21 @@
+[submodule "vendor"]
+	path = vendor
+	url = https://github.com/mozilla/playdoh-lib.git
+[submodule "vendor-local/src/jingo-minify"]
+	path = vendor-local/src/jingo-minify
+	url = https://github.com/aromanovich/jingo-minify.git
+[submodule "vendor-local/src/django-extensions"]
+	path = vendor-local/src/django-extensions
+	url = https://github.com/django-extensions/django-extensions.git
+[submodule "vendor-local/src/django_facebook_oauth"]
+	path = vendor-local/src/django_facebook_oauth
+	url = https://github.com/aromanovich/django_facebook_oauth.git
+[submodule "vendor-local/src/sorl-thumbnail"]
+	path = vendor-local/src/sorl-thumbnail
+	url = https://github.com/sorl/sorl-thumbnail.git
+[submodule "vendor-local/src/django-messages"]
+	path = vendor-local/src/django-messages
+	url = https://github.com/mirumee/django-messages.git
+[submodule "vendor-local/src/django-tastypie"]
+	path = vendor-local/src/django-tastypie
+	url = https://github.com/toastdriven/django-tastypie.git

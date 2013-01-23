@@ -1,0 +1,38 @@
+{% extends "messages/base.j.html" %}
+
+{% set messages_nav_active = 'inbox' %}
+
+
+{% block title %}{{ _('Inbox') }}{% endblock %}
+
+
+{% block messages_content %}
+
+  {% if message_list %}
+
+    <ul class="messages unstyled">
+
+    {% for message in message_list %}
+      <li class="message{% if message.is_unread() %} unread"{% endif %}">
+        <img src="{{ message.sender.profile.avatar_small }}" width="40" height="40" alt="" />
+
+        <a class="user"
+          href="{{ url('messages.detail', message.id) }}">{{ message.sender.get_full_name() }}</a>
+
+        <p class="subject">
+          {{ message.subject }}</p>
+
+        <div class="timestamp">{{ message.sent_at|date('d/m/Y') }}</div>
+
+        <a class="delete hide"
+           href="{{ url('messages.delete', message.id) }}?next={{ url('messages.outbox') }}">
+          {{ _('Delete') }}</a>
+      </li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <section>
+      <p class="empty">{{ _('Empty.') }}</p>
+    </section>
+  {% endif %} 
+{% endblock %}

@@ -1,0 +1,177 @@
+{% extends "simple.j.html" %}
+
+{% block title %}Item Page Mockup{% endblock %}
+
+{% block content %}
+
+  <div id="store-item">
+    <p class="back">
+      <a href="{{ item.store.get_absolute_url() }}">&larr; Back to <strong>{{ item.store.name }}</strong></a>
+    </p>
+
+    <div class="row">
+
+      <div class="span3">
+        <a class="thumb" data-controls-modal="gallery" data-backdrop="true"></a>
+
+        <div class="modal hide scrollable fade in" id="gallery">
+          <div class="modal-header">
+            <a href="#" class="close">×</a>
+            <h3>{% trans item=item.name %}Images of {{ item }}{% endtrans %}</h3>
+          </div>
+          <div class="modal-content">
+          </div>
+          <div class="modal-footer">
+            <a href="#" class="btn default next">Next</a>
+            <a href="#" class="btn default prev">Prev</a>
+          </div>
+        </div>
+
+        <div class="buy-now">
+          <div class="price">
+            <script id="price-template" type="text/html">
+              <span class="original money">__original_price__</span>
+              <span class="your money">__your_price__</span>
+              <div class="save">You save <span class="money">__delta__</span> (__deltaInPercent__%)</div>
+            </script>
+          </div>
+
+          {% if not request.user.profile.is_cart_locked %}
+            <div class="personal-tag">
+              <div class="loader"></div>
+              <button class="btn buy-immediately">Buy immediately</button>
+              <form>
+                <input class="quantity" name="quantity" type="text" value="1" />
+                <input type="submit" class="btn default" value="{{ _("Put in Cart") }}" />
+              </form>
+            </div>
+          {% endif %}
+
+        </div>
+      </div>
+
+      <div class="span9">
+        <section class="cart">
+          <h2>{{ item.name }}</h2>
+          <div class="description">{{ item.description }}</div>
+        </section>
+
+        <div class="social-buy">
+
+          <h6>{{ _("Buy with Others") }}
+
+            {% if not request.user.profile.is_cart_locked %}
+              <button class="start-buy btn"
+                      data-controls-modal="start-buy-modal"
+                      data-backdrop="static">{{ _("Start New Social Purchase") }}</button>
+            {% endif %}
+          </h6>
+
+          {% if request.user.profile.is_cart_locked %}
+            <p class="empty">Your cart is frozen since you have an outstanding payment.
+            <a href="{{ url('cart.social_cart') }}">Resolve</a> this issue to continue working with your cart.</p>
+          {% else %}
+
+            <div id="start-buy-modal" class="modal hide scrollable fade in">
+              <div class="modal-header">
+                <a class="close">×</a>
+                <h3>{% trans item=item.name %}Social purchase for {{ item }}{% endtrans %}</h3>
+              </div>
+
+              <form method="post" class="start-social-buy-form">
+                <div class="modal-content">
+                  <fieldset>
+                    <div class="clearfix">
+                      <label>Finish date</label>
+                      <div class="input  datetimepicker">
+                        <div class="inline-inputs">
+                          <input class="small  datepicker-control" data-datepicker="datepicker" type="text" />
+                          <input class="mini  timepicker-control" type="text" />
+                          <span class="help-inline  timediff"></span>
+                        </div>
+                        <span class="help-block  shortcuts">
+                          <a data-timedelta='{ "days": 1 }'>tomorrow</a>,
+                          <a data-timedelta='{ "weeks": 1 }'>in a week</a> <!--timedelta in a moment.js format-->
+                        </span>
+                      </div>
+                    </div>
+                    <div class="clearfix">
+                      <label>Quantity</label>
+                      <div class="input">
+                        <input type="text" name="quantity" value="1" />
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+                <div class="modal-footer actions">
+                  <input type="submit" value="Start!" class="btn default" />
+                  <div class="loader"></div>
+                </div>
+              </form>
+            </div>
+
+            <script id="social-buy-template" type="text/html">
+              <span class="buyer">
+                <img src="__creator.avatar_xsmall__" />
+                __creator.name__
+              </span>
+              <span class="cart-controls">
+                <div class="loader"></div>
+                <% if (!tag) { %>
+                  <button class="join btn default">
+                    <% if (bought === 0) { %>{{ _('Join') }}<% } else { %>{{ _('Buy more') }}<% } %>
+                  </button>
+                  <form>
+                    <input class="quantity" name="quantity" type="text" />
+                    <input type="submit" class="btn" value="{{ _('Put in cart') }}" />
+                  </form>
+                <% } else { %>
+                  <span class="items-in-cart">
+                    __tag&&tag.quantity__ in cart
+                  </span>
+                <% } %>
+              </span>
+              <span class="price money">__discounted_price__$</span>
+              <span class="time-left">__finishes_in__</span>
+              <span class="items-bought"><% if (bought > 0) { %>__bought__ bought<% } %></span>
+            </script>
+
+            <script type="text/html" id="buy-list">
+              <% if (is_empty) { %>
+                <p class="empty">{% trans %}There're no social purchases in this store yet.{% endtrans %}</p>
+              <% } else { %>
+                <section>
+                  <ul class="buys  unstyled">
+                  </ul>
+                </section>
+                <p class="activate-your-buys"><small>
+                  You have outstanding social buys. To activate your social buys and join others' you must pay.
+                  <a href="{{ url('cart.social_cart') }}">Go</a> edit your cart and proceed to checkout.
+                </small></p>
+              <% } %>
+            </script>
+
+            <section class="buy-list  well">
+            </section>
+
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+<script>
+{% block js_ready %}
+  {{ super() }}
+
+  window.app = new ItemRouter({
+    images: {{ images_json|safe }},
+    item: {{ item_details_json|safe }},
+    isCartLocked: {{ request.user.profile.is_cart_locked|json_encode }}
+  });
+  Backbone.history.start();
+{% endblock %}
+</script>

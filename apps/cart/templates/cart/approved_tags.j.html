@@ -1,0 +1,53 @@
+{% extends "cart/base.j.html" %}
+
+{% set section = 'cart' %}
+
+{% block title %}{% endblock %}
+
+{% block css %}
+  {{ super() }}
+{% endblock %}
+
+{% set cart_nav_active='approved_tags' %}
+
+{% block cart_content %}
+  <h2>Social</h2>
+  <ul class="approved-social-tags">
+    {% raw %}
+    <script id="approved-social-tag-template" type="text/html">
+      <img src="__item.default_image__" />
+      <h3>__item.name__ <small>$__item.price__</small></h3>  <!-- TODO PRICE --> 
+      <p class="quantity">
+        Quantity: __quantity__
+      </p>
+      <p class="buy">
+      You put this in the cart through social buy that finishes at __buy.finish_date__ (buy id: __buy.id__).
+      </p>
+    </script>
+    {% endraw %}
+  </ul>
+  <hr />
+  <h2>Personal</h2>
+  <ul class="approved-personal-tags">
+    {% raw %}
+    <script id="approved-personal-tag-template" type="text/html">
+      <img src="__item.default_image__" />
+      <h3>__item.name__ <small>$__item.price__</small></h3> <!-- TODO PRICE -->
+      <p class="quantity">
+        Quantity: __quantity__
+      </p>
+    </script>
+    {% endraw %}
+  </ul>
+{% endblock %}
+
+{% block js_ready %}
+  {{ super() }}
+  window.app = new ApprovedTagsRouter({
+    items: {{ items_json|safe }},
+    socialBuys: {{ buys_json|safe }},
+    socialTags: {{ approved_social_tags_json|safe }},
+    personalTags: {{ approved_personal_tags_json|safe }}
+  });
+  Backbone.history.start();
+{% endblock %}

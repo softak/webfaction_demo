@@ -1,0 +1,52 @@
+{% extends "stores/manage/base.j.html" %}
+
+{% set store_nav_active='discounts' %}
+
+{% import "forms.j.macro" as forms %}
+
+{% block title %}{{ _('Manage discounts') }}{% endblock %}
+
+{% block manage_content %}
+  <section>
+    <table class="discounts  table table-bordered">
+      <tr>
+        <th class="discounts-name" >Name</th>
+        <th>Discount for each additional item</th>
+        <th>Discount for each additional buyer</th>
+        <th>Discount lower bound</th>
+        <th class="discounts-actions">Actions</th>
+      </tr>
+
+      <script id="discount-template" type="text/html">
+        <td contenteditable data-name="name">__name__</td>
+        <td contenteditable data-name="for_additional_item">__for_additional_item__</td>
+        <td contenteditable data-name="for_additional_buyer">__for_additional_buyer__</td>
+        <td contenteditable data-name="lower_bound">__lower_bound__</td>
+        <td class="controls">
+          <a class="btn delete">{{ _('Delete') }}</a>
+          <a class="btn save">{{ _('Save') }}</a>
+          <a class="btn cancel">{{ _('Cancel') }}</a>
+          <div class="loader"></div>
+        </td>
+      </script>
+    </table>
+  </section>
+
+
+  {{ forms.form(discount_creation_form,
+                csrf(),
+                "/stores/api/v1/discount/",
+                submit_text=_("Create"),
+                autocomplete="off",
+                exclude=["store"],
+                id="create-discount",
+                class="form-horizontal footing") }}
+{% endblock %}
+
+{% block js_ready %}
+  {{ super() }}
+  window.app = new DiscountManageRouter({
+    discounts: {{ discounts_json|safe }}
+  });
+  Backbone.history.start();
+{% endblock %}

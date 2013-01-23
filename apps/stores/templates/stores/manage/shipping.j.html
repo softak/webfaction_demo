@@ -1,0 +1,59 @@
+{% extends "stores/manage/base.j.html" %}
+
+{% import "forms.j.macro" as forms %}
+{% set store_nav_active="shipping" %}
+
+
+{% block manage_content %}
+  <script id="shipping-request-template" type="text/html">
+    <div class="header">
+      <a href="__creator.site_url__" class="buyer">
+        <img src="__creator.avatar_xsmall__" />
+        <span>__creator.name__</span>
+      </a>
+      <address>
+        __address__
+      </address>
+    </div>
+    <ul class="items  unstyled">
+      <% _(social_buy.tags).each(function(tag) { %>
+      <li>
+        __tag.item_name__
+        <span class="item-total">
+          <span class="money">__tag.discounted_price__</span>
+        </span>
+        <span class="item-summary">
+          __tag.quantity__
+          &times;
+          <span class="money">__tag.item_discounted_price__</span>
+      </li>
+      <% }); %>
+      <li class="total">
+        Total: <span class="money">__total__</span>
+      </li>
+    </ul>
+    <div class="controls">
+      <button class="btn set-price">{{ _("Set Postage Price") }}</button>
+      <button class="btn cancel">{{ _("Cancel") }}</button>
+    </div>
+    <form class="form-inline set-price-form">
+      <input class="postage-price" placeholder="Postage price" />
+      <button class="btn submit">Send</button>
+      <button class="btn cancel">Cancel</button>
+    </form>
+  </script>
+
+  <ul class="shipping-requests  unstyled"></ul>
+{% endblock %}
+
+
+<script>
+{% block js_ready %}
+  {{ super() }}
+
+  window.app = new ShippingRequestsManageRouter({
+    shipping_requests: {{ shipping_requests_json|safe }}
+  });
+  Backbone.history.start();
+{% endblock %}
+</script>

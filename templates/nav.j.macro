@@ -1,0 +1,15 @@
+{% macro ul(items, active='', class='') -%}
+  <ul class="nav{% if class %} {{ class }}{% endif %}">
+  {%- for id, href, caption in items %}
+    <li{% if id == active %} class="active"{% endif %}><a href="{{ href|e }}">{{ caption|e }}</a></li>
+  {%- endfor %}
+  </ul>
+{%- endmacro %}
+
+{% macro tabs(items, active='') -%}
+  {{ ul(items, active, 'nav-tabs') }}
+{%- endmacro %}
+
+{% macro pills(items, active='') -%}
+  {{ ul(items, active, 'nav-pills') }}
+{%- endmacro %}

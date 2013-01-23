@@ -1,0 +1,320 @@
+@import "common";
+@import "bootstrap/variables.less";
+@import "bootstrap/mixins.less";
+
+#start-buy-modal {
+  .loader {
+    display: none;
+    width: 20px;
+    height: 20px;
+    background: url(../img/small-loader.gif) no-repeat center center;
+  }
+  &.loading {
+    .loader { display: block; }
+    .actions input[type=submit] { display: none; }
+  }
+
+  .start-social-buy-form {
+    margin-bottom: 0;
+  }
+}
+
+#cart {
+
+  .personal-tags, .social-tags, .approved-social-tags, .approved-personal-tags {
+    .clearfix();
+
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin: 0;
+      margin-top: 10px;
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+
+      .border-radius();
+      border: 1px solid #ddd;
+
+      img, h3 {
+        margin-top: 5px;
+      }
+      
+      img {
+        float: left;
+        margin: 5px 10px 5px 5px;
+        width: 80px;
+        height: 80px;
+      }
+
+      h3 {
+        line-height: 1;
+      }
+
+      p {
+        margin-top: 5px;
+      }
+
+      .editable { border: 1px solid green; font-size: 14px; padding: 5px;}
+
+    }
+
+    .controls {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      font-size: 11px;
+      background: white;
+      padding: 3px 5px;
+      
+      border: 1px solid #ddd;
+      .border-radius();
+      .box-shadow(0 1px 1px rgba(0,0,0,.075));
+
+      .delete {
+        display: inline-block;
+        background: url(../img/delete-sprite.png) no-repeat right center;
+        width: 16px;
+        height: 16px;
+        text-indent: -9999px;
+        
+        &:hover {
+          background-position: 0 -20px;
+        }
+      }
+    }
+    
+  }
+
+  form {
+    .actions {
+      padding-left: 20px;
+    }
+  }
+
+
+
+  .alert-message {
+    margin-bottom: 9px;
+  }
+
+  .buys {
+
+    li {
+
+      .header {
+        .clearfix();
+        position: relative;
+        z-index: 2;
+        background: #f7f7f7;
+        line-height: 28px;
+        padding: 9px;
+
+        .buyer {
+          img {
+            float: left;
+            margin-right: 5px;
+            .border-radius();
+          }
+          &.you .name { font-style: italic; }
+        }
+        a.buyer { cursor: pointer; }
+
+        .time-left {
+          /*position: absolute;*/
+          /*left: 400px;*/
+          /*font-style: italic;*/
+        }
+
+        .store {
+          /*float: right;*/
+        }
+
+        .shipping {
+          float: right;
+          color: @grayLight;
+
+          button {
+            margin-left: 4px;
+            margin-top: -4px;
+          }
+
+          .money {
+            color: @grayDark;
+            font-weight: bold;
+          }
+
+          &.sent {
+            font-size: 11px;
+          }
+        }
+      }
+
+
+      .tags {
+        .clearfix();
+        margin-top: -1px;
+
+        li {
+          .clearfix();
+          border-top: 1px solid #ddd;
+          padding: 9px;
+          position: relative;
+
+          @thumb-size: 80px;
+
+          .thumb {
+            display: block;
+            float: left;
+            width: @thumb-size;
+            height: @thumb-size;
+
+            border: 1px solid #ddd;
+            .border-radius();
+            /*.box-shadow(rgba(0, 0, 0, 0.2) 0 0 5px 0);*/
+          }
+
+          .caption, .price, .controls, {
+            margin-left: @thumb-size+20px;
+          }
+
+
+          .price {
+            .original {
+              text-decoration: line-through;
+            }
+            .current {
+              color: @sd-red;
+              font-weight: bold;
+            }
+          }
+
+          .checkout-price {
+            position: absolute;
+            right: 9px;
+            top: 9px;
+
+            .total {
+              font-weight: bold;
+            }
+          }
+
+          .controls {
+            .loader {
+                display: none;
+                width: 20px;
+                height: 20px;
+                background: url(../img/small-loader.gif) no-repeat center center;
+            }
+
+            .in-cart {
+            }
+            .change {
+              cursor: pointer;
+              font-size: 11px;
+              background: url(../img/edit-sprite.png) no-repeat right center;
+              display: inline-block;
+              text-indent: -9999px;
+              width: 16px;
+              height: 16px;
+              &:hover {
+                background-position: left center;
+              }
+            }
+
+            form {
+              display: none;
+              input.quantity {
+                width: 30px;
+              }
+            }
+
+            .remove {
+              position: absolute;
+              top: 9px;
+              right: 9px;
+              cursor: pointer;
+              width: 20px;
+              height: 20px;
+              background: url(../img/destroy-sprite.png) no-repeat 0 0;
+              text-indent: -9999px;
+
+              &:hover {
+                background-position: 0 -20px;
+              }
+            }
+          }
+          &.loading {
+            .controls {
+              .in-cart, .change, form { display: none; }
+              .loader { display: block; }
+            }
+          }
+          &.active {
+            background: #fffbe9;
+
+            .controls {
+              .in-cart, .change, .loader { display: none; }
+              form { display: block; }
+            }
+          }
+          &.uneditable .controls {
+            .change, .remove {
+                display: none;
+            }
+          }
+        }
+      }
+
+      &.checkout-total {
+        background: #f7f7f7;
+        line-height: 28px;
+        text-align: right;
+        padding: 9px;
+        font-weight: bold;
+      }
+
+
+
+
+      &.expired {
+        .header {
+          background: @warningBackground;
+        }
+      }
+    }
+
+    &.ready-to-pay {
+      li {
+        .header {
+          background: @successBackground;
+
+          // compensate cancel button
+          padding-right: 9px + 20px + 9px;
+
+          .cancel {
+            position: absolute;
+            top: 13px;
+            right: 9px;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            background: url(../img/destroy-sprite.png) no-repeat 0 0;
+            text-indent: -9999px;
+
+            &:hover {
+              background-position: 0 -20px;
+            }
+          }
+        }
+        &.expired {
+          .header {
+            background: @warningBackground;
+          }
+        }
+      }
+    }
+  }
+}

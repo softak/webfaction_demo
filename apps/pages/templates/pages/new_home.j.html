@@ -1,0 +1,281 @@
+{% extends "base.j.html" %}
+
+{% import "forms.j.macro" as forms %}
+{% import "nav.j.macro" as nav %}
+
+
+{% block title %}{{ _("Home") }}{% endblock %}
+
+{% block body %}
+  {% if user.is_authenticated() %}
+  <div id="navigator"  class="container">
+    <div class="map">
+      <div class="canvas"></div>
+      <div class="toolbar">
+        <a class="enter  btn btn-success btn-large">{{ _("Enter") }}</a>
+        <a class="browse  btn btn-warning btn-large">{{ _("Browse") }}</a>
+      </div>
+    </div>
+
+    <div class="browser">
+      <div class="carousel">
+        <div class="carousel-inner">
+
+          <div class="item active">
+            <img src="{{ STATIC_URL }}img/temp-window.png" width="940" height="300" alt="" />
+            <aside class="carousel-caption">
+              <div class="store-info">
+                <h4>Antiques Republic</h4>
+                <p>Short store description - a kind of slogan.</p>
+              </div>
+
+              <a class="enter  btn btn-success btn-large">{{ _("Enter") }}</a>
+              <a class="show-map  btn btn-warning btn-large">{{ _("Show map") }}</a>
+            </aside>
+          </div>
+
+          <div class="item">
+            <h1>World!</h2>
+            <aside class="carousel-caption">
+              <div class="store-map"></div>
+              <h4>Store 2</h4>
+              {{ lipsum(n=1, max=22) }}
+            </aside>
+          </div>
+
+        </div>
+
+        <a class="carousel-control left" href="#" data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#" data-slide="next">&rsaquo;</a>
+      </div>
+    </div>
+
+    <div class="feed  container">
+      <ul  class="unstyled">
+
+        <li class="event">
+          <p>
+            <img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?size=28" />
+            <a href="#">Beau Lebens</a> joined
+            <a href="#">Alexei Selivanov</a>'s social purchase in
+            <a href="#">Second Hand Book Store</a>
+            (lasting in 2 days) with
+            <a class="items control" href="#">1 item</a>
+          </p>
+
+          <ul class="items  thumbnails">
+            <li>
+            <a class="thumbnail" href="#"
+               rel="tooltip"
+               title="TicTac Bracelet for iPod nano"
+               data-placement="bottom">
+                <img src="{{ STATIC_URL }}img/temp-item-thumb-cart-3.jpg" alt="" />
+              </a>
+            </li>
+            <li>
+              <a class="thumbnail join" href="#">
+                <img src="{{ STATIC_URL }}img/plus.png" alt="" />
+              </a>
+            </li>
+          </ul>
+
+        </li>
+        <li class="event">
+          <p>
+            <img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?size=28" />
+            <a href="#">Beau Lebens</a> joined 
+            <a href="#">Alexei Selivanov</a>'s social purchase in 
+            <a href="#">Second Hand Book Store</a> 
+            (lasting in 2 days) with 
+            <a class="items control" href="#">1 item</a>
+          </p>
+
+          <ul class="items  thumbnails">
+            <li>
+            <a class="thumbnail" href="#"
+               rel="tooltip"
+               title="TicTac Bracelet for iPod nano"
+               data-placement="bottom">
+                <img src="{{ STATIC_URL }}img/temp-item-thumb-cart-3.jpg" alt="" />
+              </a>
+            </li>
+            <li>
+              <a class="thumbnail join" href="#">
+                <img src="{{ STATIC_URL }}img/plus.png" alt="" />
+              </a>
+            </li>
+          </ul>
+
+        </li>
+        <li class="event">
+          <p>
+            <img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?size=28" />
+            <a href="#">Beau Lebens</a> joined
+            <a href="#">Alexei Selivanov</a>'s social purchase in
+            <a href="#">Second Hand Book Store</a>
+            (lasting in 2 days) with
+            <a class="items control" href="#">1 item</a>
+          </p>
+
+          <ul class="items  thumbnails">
+            <li>
+            <a class="thumbnail" href="#"
+               rel="tooltip"
+               title="TicTac Bracelet for iPod nano"
+               data-placement="bottom">
+                <img src="{{ STATIC_URL }}img/temp-item-thumb-cart-3.jpg" alt="" />
+              </a>
+            </li>
+            <li>
+              <a class="thumbnail join" href="#">
+                <img src="{{ STATIC_URL }}img/plus.png" alt="" />
+              </a>
+            </li>
+          </ul>
+
+        </li>
+        <li class="event">
+          <p>
+            <img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?size=28" />
+            <a href="#">Beau Lebens</a> joined
+            <a href="#">Alexei Selivanov</a>'s social purchase in
+            <a href="#">Second Hand Book Store</a>
+            (lasting in 2 days) with
+            <a class="items control" href="#">1 item</a>
+          </p>
+
+          <ul class="items  thumbnails">
+            <li>
+            <a class="thumbnail" href="#"
+               rel="tooltip"
+               title="TicTac Bracelet for iPod nano"
+               data-placement="bottom">
+                <img src="{{ STATIC_URL }}img/temp-item-thumb-cart-3.jpg" alt="" />
+              </a>
+            </li>
+            <li>
+              <a class="thumbnail join" href="#">
+                <img src="{{ STATIC_URL }}img/plus.png" alt="" />
+              </a>
+            </li>
+          </ul>
+
+        </li>
+
+        <li class="event">
+          <p>
+            <img src="http://www.gravatar.com/avatar/08cdc53e3585882d71317523631564c2?size=28" />
+            <a href="#">Alexei Selivanov</a> started new social purchase in
+            <a href="#">Second Hand Book Store</a> 
+            (lasting in 2 days) with 
+            <a class="items control" href="#">2 items</a>
+          </p>
+
+          <ul class="items  thumbnails">
+            <li>
+              <a class="thumbnail"
+                 rel="tooltip"
+                 title="Some Cool Book"
+                 data-placement="bottom"
+                 href="#">
+                <img src="{{ STATIC_URL }}img/temp-item-thumb-cart-1.jpg" alt="" />
+              </a>
+            </li>
+            <li>
+              <a class="thumbnail"
+                 rel="tooltip"
+                 title="Some Book about Las Vegas"
+                 data-placement="bottom"
+                 href="#">
+                <img src="{{ STATIC_URL }}img/temp-item-thumb-cart-4.jpg" alt="" />
+              </a>
+            </li>
+            <li>
+              <a class="thumbnail join" href="#">
+                <img src="{{ STATIC_URL }}img/plus.png" alt="" />
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+
+  </div>
+
+
+  {% else %}
+    <div id="content" class="container">
+      {# TODO replace with something real! #}
+      <div class="page-header">
+        <h1>Welcome to Shopping Domain!
+          <small>The best place to buy something!</small>
+        </h1>
+      </div>
+
+      <div class="row">
+        <div class="span3">
+          <h2>You're cool!</h2>
+          {{ lipsum(n=1, max=40) }}
+        </div>
+        <div class="span3">
+          <h3>We're cool!</h3>
+          {{ lipsum(n=1, max=40) }}
+        </div>
+        <div class="span6">
+          <h3>Everybody's cool!</h3>
+          {{ lipsum(n=2, max=40) }}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block js %}
+  {{ super() }}
+  <script src="//maps.google.com/maps/api/js?v=3.5&sensor=true"
+          type="text/javascript"></script>
+{% endblock %}
+
+<script>
+{% block js_ready %}
+  {{ super() }}
+  window.stores = {{ stores_json|safe }};
+  window.router = new NavigatorRouter({
+    stores: stores
+  });
+  Backbone.history.start();
+
+  /*
+  $('#navigator .browser .carousel').carousel('pause');
+  $('.browser .carousel .item:first img').annotateImage({
+    editable: false,
+    useAjax: false,
+    notes: [
+      {
+        top: 100,
+        left: 250,
+        width: 80,
+        height: 100,
+        text: "Vase with flowers!",
+      }
+    ]
+  });
+
+  $('.feed .event a.items').each(function() {
+    var $this = $(this);
+    var $items = $this.parent().nextAll('ul').first();
+    $this.click(function() {
+      $items.toggle();
+    });
+  });
+
+  $('#navigator .browser .show-map').click(function() {
+    $('#navigator').removeClass('browsing');
+  });
+  $('#navigator .map .browse').click(function() {
+    $('#navigator').addClass('browsing');
+  });
+  */
+{% endblock %}
+</script>

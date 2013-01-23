@@ -1,0 +1,10 @@
+{% extends "plain.j.html" %}
+
+{% block title %}{{ flatpage.title }}{% endblock %}
+
+{% block content %}
+  <section>
+    <h2>{{ flatpage.title }}</h2>
+    {{ flatpage.content|markdown|safe }}
+  </section>
+{% endblock %}

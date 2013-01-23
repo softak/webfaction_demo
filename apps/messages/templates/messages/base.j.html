@@ -1,0 +1,27 @@
+{% extends "plain.j.html" %}
+
+{% import "nav.j.macro" as nav %}
+{% set section='mailbox' %}
+
+
+{% block title %}{{ _('Messages') }}{% endblock %}
+
+
+{% block content %}
+
+    <div class="page-header tabbed">
+      <h1>{{ _('Messages') }}</h1>
+
+      {% set messages_nav=[
+        ('inbox', url('messages.inbox'), _('Inbox')),
+        ('outbox', url('messages.outbox'), _('Outbox')),
+      ] %}
+      {% set messages_nav_active=messages_nav_active|default('inbox') %}
+      {{ nav.tabs(messages_nav, messages_nav_active) }}
+    </div>
+    <div id="messages" class="tab-content">
+      <div class="tab-pane active">
+        {% block messages_content %}{% endblock %}
+      </div>
+    </div>
+{% endblock %}

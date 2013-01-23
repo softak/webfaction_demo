@@ -1,0 +1,68 @@
+{% extends "cart/base.j.html" %}
+
+{% set section='cart' %}
+{% set cart_nav_active='social' %}
+
+
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+      <h2>Social Cart Checkout</h2>
+    </div>
+
+    <div class="tab-content" id="cart">
+      <div class="tab-pane active">
+
+        <ul class="buys  unstyled">
+          {% for request in (cart.shipping_requests + cart.pickup_requests) %}
+            {% set buy = request.buy %}
+            <li>
+              <div class="header">
+                <span class="buyer you">
+                  <img src="{{ buy.creator.avatar_xsmall }}" />
+                  <span class="name">{{ buy.creator.name }}</span>
+                </span>
+                <span class="finish-time">{{ buy.finish_date }}</span>
+                <span class="store">{{ buy.store_name }}</span>
+                <span class="shipping">
+
+                {% if request.price %}
+                  Postage price is <span class="money">{{ request.price }}</span>
+                {% else %}
+                  You will pick it up.
+                {% endif %}
+                </span>
+              </div>
+
+              <ul class="tags  unstyled">
+                {% for tag in buy.tags %}
+                  <li>
+                    <img class="thumb" src="{{ tag.item_thumb }}" width="80" height="80" />
+                    <div class="caption">{{ tag.item_name }}</div>
+                    <div class="checkout-price">
+                      <span class="money">{{ tag.item_discounted_price }}</span> &times;
+                      <span>{{ tag.quantity }}</span> =
+                      <span class="money">{{ tag.discounted_price }}</span>
+                    </div>
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endfor %}
+
+          <li class="checkout-total">
+            Total: <span class="total money">{{ cart.total }}</span>
+          </li>
+        </ul>
+        
+        <form class="footing">
+          <div class="form-actions">
+            <a href="{{ url('cart.approve_social_cart') }}" class="btn default">{{ _('Pay with PayPal') }}</a>
+            <label class="secondary-action"><a href="{{ url('cart.social_cart') }}">Edit Cart</a></label>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

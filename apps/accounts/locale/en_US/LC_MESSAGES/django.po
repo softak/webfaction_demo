@@ -1,0 +1,2 @@
+msgid "Please enter a correct username and password. Note that both fields are case-sensitive."
+msgstr "Please enter a correct e-mail and password. Note that password field are case-sensitive."
